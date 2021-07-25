@@ -107,6 +107,8 @@ class Main extends Application {
         case KeyCode.SPACE => embeddedMediaPlayer.controls().pause()
         case KeyCode.RIGHT => embeddedMediaPlayer.controls().skipTime(10000)
         case KeyCode.LEFT => embeddedMediaPlayer.controls().skipTime(-10000)
+        case KeyCode.UP => embeddedMediaPlayer.audio().setVolume(embeddedMediaPlayer.audio().volume()+5)
+        case KeyCode.DOWN => embeddedMediaPlayer.audio().setVolume(embeddedMediaPlayer.audio().volume()-5)
         case KeyCode.F11 => primaryStage.setFullScreen(true)
       }
     })
