@@ -20,6 +20,7 @@ import uk.co.caprica.vlcj.media.{Media, MediaEventListener, MediaParsedStatus, M
 import uk.co.caprica.vlcj.player.base.{MediaPlayer, MediaPlayerEventAdapter, State}
 import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
+import uk.co.caprica.vlcj.player.embedded.fullscreen.adaptive.AdaptiveFullScreenStrategy
 
 object Main extends App {
   Application.launch(classOf[Main], args:_*)
@@ -97,12 +98,16 @@ class Main extends Application {
       }
     })
 
+    // 全画面モードに入ったときに表示するテキストを空にしてる
+    primaryStage.setFullScreenExitHint("")
+
     // キーイベント処理
     scene.setOnKeyPressed(e => {
       e.getCode match {
         case KeyCode.SPACE => embeddedMediaPlayer.controls().pause()
         case KeyCode.RIGHT => embeddedMediaPlayer.controls().skipTime(10000)
         case KeyCode.LEFT => embeddedMediaPlayer.controls().skipTime(-10000)
+        case KeyCode.F11 => primaryStage.setFullScreen(true)
       }
     })
 
