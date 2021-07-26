@@ -5,13 +5,14 @@ import java.io.File
 import javafx.application.{Application, Platform}
 import javafx.event.EventHandler
 import javafx.scene.Scene
-import javafx.scene.image.ImageView
+import javafx.scene.image.{Image, ImageView}
 import javafx.scene.layout.{Background, BackgroundFill, BorderPane, CornerRadii, HBox, StackPane}
 import javafx.scene.paint.Color
-import javafx.stage.Stage
+import javafx.stage.{Stage, StageStyle}
 import javafx.scene.control._
 import javafx.geometry.{Insets, Pos}
-import javafx.scene.input.{DragEvent, KeyCode, KeyEvent, TransferMode}
+import javafx.scene.input.{DragEvent, KeyCode, KeyEvent, MouseEvent, TransferMode}
+import javafx.scene.shape.Rectangle
 import javafx.scene.text.TextAlignment
 import uk.co.caprica.vlcj.javafx.videosurface.ImageViewVideoSurfaceFactory.videoSurfaceForImageView
 import javax.xml.crypto.Data
@@ -38,13 +39,16 @@ class Main extends Application {
 
 
   override def start(primaryStage: Stage): Unit = {
-
+    
     val videoStack = new StackPane()
     val toolBar = new StackPane()
+    val titleBar = new StackPane()
+    val titleButton = new HBox()
 
     // ウィンドウ設定
     videoStack.setPrefSize(800,600)
     videoStack.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)))
+    primaryStage.initStyle(StageStyle.UNDECORATED)
 
     // 動画のサイズ設定(よくわかってないけどそんな感じなはず）
     videoImageView.fitWidthProperty().bind(videoStack.widthProperty())
@@ -57,11 +61,60 @@ class Main extends Application {
     timeLabel.setTextFill(Color.WHITE)
     toolBar.getChildren.addAll(timeLabel)
     toolBar.setAlignment(Pos.BOTTOM_CENTER)
-    videoStack.getChildren.addAll(videoImageView,toolBar)
+
+    // タイトルバー作成
+    val rect1 = new Rectangle(0,0,0,40)
+    rect1.setFill(Color.TRANSPARENT)
+    rect1.widthProperty().bind(primaryStage.widthProperty())
+
+    // 終了ボタン
+    val exitButtonImage = new Image(getClass.getResourceAsStream("exit.png"))
+    val exitButton = new Button()
+    exitButton.setGraphic(new ImageView(exitButtonImage))
+    exitButton.setStyle("-fx-background-color:Black;-fx-background-radius:0")
+    exitButton.setOnAction(event => { // 押されたときにアプリを終了する
+      Platform.exit()
+    })
+
+    // アイコン化(最小化？言い方がよくわからない）
+    val iconifiedButtonImage = new Image(getClass.getResourceAsStream("iconified.png"))
+    val iconifiedButton = new Button()
+    iconifiedButton.setGraphic(new ImageView(iconifiedButtonImage))
+    iconifiedButton.setStyle("-fx-background-color:Black;-fx-background-radius:0")
+    iconifiedButton.setOnAction(event => {
+      primaryStage.setIconified(true)
+    })
+
+    // ウィンドウの最大化、最大化を元に戻す
+    val maximizedButtonImage = new Image(getClass.getResourceAsStream("maximized.png"))
+    val minimizedButtonImage = new Image(getClass.getResourceAsStream("minimized.png"))
+    val maximizedButton = new Button()
+    maximizedButton.setGraphic(new ImageView(maximizedButtonImage))
+    maximizedButton.setStyle("-fx-background-color:Black;-fx-background-radius:0")
+    maximizedButton.setOnAction(event => {
+      if(primaryStage.isMaximized) {
+        primaryStage.setMaximized(false)
+        maximizedButton.setGraphic(new ImageView(maximizedButtonImage))
+      } else {
+        primaryStage.setMaximized(true)
+        maximizedButton.setGraphic(new ImageView(minimizedButtonImage))
+      }
+    })
+
+    // rect1 が押せるようになる
+    titleButton.setPickOnBounds(false)
+
+    titleButton.setAlignment(Pos.TOP_RIGHT)
+    titleButton.getChildren.addAll(maximizedButton,iconifiedButton,exitButton)
+
+    titleBar.setAlignment(Pos.TOP_LEFT)
+    titleBar.getChildren.addAll(rect1,titleButton)
+
+    videoStack.getChildren.addAll(videoImageView,toolBar,titleBar)
 
     // 表示
     val scene = new Scene(videoStack)
-    primaryStage.setTitle("vlcj JavaFx")
+    primaryStage.setTitle("polishplayer")
 
     // ドラッグ処理
     scene.setOnDragOver(new EventHandler[DragEvent] {
@@ -112,6 +165,14 @@ class Main extends Application {
         case KeyCode.M => embeddedMediaPlayer.audio().mute()
         case KeyCode.F11 => primaryStage.setFullScreen(true)
       }
+    })
+
+    // ウィンドウ移動
+    rect1.setOnMousePressed(pressEvent => {
+      rect1.setOnMouseDragged(dragEvent => {
+        primaryStage.setX(dragEvent.getScreenX - pressEvent.getSceneX)
+        primaryStage.setY(dragEvent.getScreenY - pressEvent.getSceneY)
+      })
     })
 
   }
