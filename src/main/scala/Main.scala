@@ -54,7 +54,7 @@ class Main extends Application {
     videoImageView.fitWidthProperty().bind(videoStack.widthProperty())
     videoImageView.fitHeightProperty().bind(videoStack.heightProperty())
 
-
+    // ツールバー作成
     // 時間表示設定
     val timeLabel = new Label
     timeLabel.setText(timeFmt.fmt(0))
@@ -63,6 +63,7 @@ class Main extends Application {
     toolBar.setAlignment(Pos.BOTTOM_CENTER)
 
     // タイトルバー作成
+    // 透明なブロックを一番上においてウィンドウを動かせるようにする
     val rect1 = new Rectangle(0,0,0,40)
     rect1.setFill(Color.TRANSPARENT)
     rect1.widthProperty().bind(primaryStage.widthProperty())
@@ -72,7 +73,7 @@ class Main extends Application {
     val exitButton = new Button()
     exitButton.setGraphic(new ImageView(exitButtonImage))
     exitButton.setStyle("-fx-background-color:Black;-fx-background-radius:0")
-    exitButton.setOnAction(event => { // 押されたときにアプリを終了する
+    exitButton.setOnMouseClicked(event => { // 押されたときにアプリを終了する
       Platform.exit()
     })
 
@@ -81,8 +82,9 @@ class Main extends Application {
     val iconifiedButton = new Button()
     iconifiedButton.setGraphic(new ImageView(iconifiedButtonImage))
     iconifiedButton.setStyle("-fx-background-color:Black;-fx-background-radius:0")
-    iconifiedButton.setOnAction(event => {
+    iconifiedButton.setOnMouseClicked(event => {
       primaryStage.setIconified(true)
+      videoStack.requestFocus()
     })
 
     // ウィンドウの最大化、最大化を元に戻す
@@ -91,7 +93,7 @@ class Main extends Application {
     val maximizedButton = new Button()
     maximizedButton.setGraphic(new ImageView(maximizedButtonImage))
     maximizedButton.setStyle("-fx-background-color:Black;-fx-background-radius:0")
-    maximizedButton.setOnAction(event => {
+    maximizedButton.setOnMouseClicked(event => {
       if(primaryStage.isMaximized) {
         primaryStage.setMaximized(false)
         maximizedButton.setGraphic(new ImageView(maximizedButtonImage))
@@ -99,6 +101,7 @@ class Main extends Application {
         primaryStage.setMaximized(true)
         maximizedButton.setGraphic(new ImageView(minimizedButtonImage))
       }
+      videoStack.requestFocus()
     })
 
     // rect1 が押せるようになる
@@ -136,14 +139,17 @@ class Main extends Application {
             embeddedMediaPlayer.media().play(f.getAbsolutePath)
           }
         }
+        event.consume()
       }
     })
 
+    videoStack.requestFocus()
     primaryStage.setScene(scene)
     primaryStage.show()
 
     // イベント処理
     embeddedMediaPlayer.events().addMediaPlayerEventListener(new MediaPlayerEventAdapter(){
+      // 時間表示
       override def timeChanged(mediaPlayer: MediaPlayer, newTime: Long): Unit = {
         Platform.runLater(() => {
           timeLabel.setText(timeFmt.fmt(newTime))
@@ -167,12 +173,18 @@ class Main extends Application {
       }
     })
 
+
     // ウィンドウ移動
     rect1.setOnMousePressed(pressEvent => {
       rect1.setOnMouseDragged(dragEvent => {
         primaryStage.setX(dragEvent.getScreenX - pressEvent.getSceneX)
         primaryStage.setY(dragEvent.getScreenY - pressEvent.getSceneY)
       })
+    })
+
+    // フォーカスさせる
+    videoStack.setOnMouseReleased(event => {
+      videoStack.requestFocus()
     })
 
   }
