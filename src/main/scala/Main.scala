@@ -6,7 +6,7 @@ import javafx.application.{Application, Platform}
 import javafx.event.EventHandler
 import javafx.scene.Scene
 import javafx.scene.image.{Image, ImageView}
-import javafx.scene.layout.{Background, BackgroundFill, BorderPane, CornerRadii, HBox, StackPane}
+import javafx.scene.layout.{Background, BackgroundFill, BorderPane, CornerRadii, HBox, StackPane, VBox}
 import javafx.scene.paint.Color
 import javafx.stage.{Stage, StageStyle}
 import javafx.scene.control._
@@ -41,7 +41,8 @@ class Main extends Application {
   override def start(primaryStage: Stage): Unit = {
     
     val videoStack = new StackPane()
-    val toolBar = new StackPane()
+    val toolBar = new VBox()
+    val toolBarHBox = new HBox(5)
     val titleBar = new StackPane()
     val titleButton = new HBox()
 
@@ -59,8 +60,31 @@ class Main extends Application {
     val timeLabel = new Label
     timeLabel.setText(timeFmt.fmt(0))
     timeLabel.setTextFill(Color.WHITE)
-    toolBar.getChildren.addAll(timeLabel)
+
+    // 再生、停止ボタン
+    val playButtonImage = new Image(getClass.getResourceAsStream("play.png"))
+    val stopButtonImage = new Image(getClass.getResourceAsStream("stop.png"))
+    val pauseButton = new Button()
+    pauseButton.setGraphic(new ImageView(stopButtonImage))
+    pauseButton.setStyle("-fx-background-color:Transparent;-fx-background-radius:0")
+    pauseButton.setOnMouseClicked(event => {
+      embeddedMediaPlayer.controls().pause()
+      if (embeddedMediaPlayer.status().isPlaying){
+        pauseButton.setGraphic(new ImageView(playButtonImage))
+      } else {
+        pauseButton.setGraphic(new ImageView(stopButtonImage))
+      }
+    })
+
+    // 再生バー作成
+    val timeSlider = new Slider()
+
+    toolBarHBox.getChildren.addAll(timeLabel,pauseButton)
+    toolBarHBox.setAlignment(Pos.CENTER)
+
     toolBar.setAlignment(Pos.BOTTOM_CENTER)
+    toolBar.getChildren.addAll(timeSlider,toolBarHBox)
+
 
     // タイトルバー作成
     // 透明なブロックを一番上においてウィンドウを動かせるようにする
@@ -104,8 +128,9 @@ class Main extends Application {
       videoStack.requestFocus()
     })
 
-    // rect1 が押せるようになる
+    // 重なって押せない要素を押せるようにする
     titleButton.setPickOnBounds(false)
+    titleBar.setPickOnBounds(false)
 
     titleButton.setAlignment(Pos.TOP_RIGHT)
     titleButton.getChildren.addAll(maximizedButton,iconifiedButton,exitButton)
@@ -154,6 +179,7 @@ class Main extends Application {
         Platform.runLater(() => {
           timeLabel.setText(timeFmt.fmt(newTime))
         })
+        timeSlider.setValue((newTime.toDouble/embeddedMediaPlayer.status().length().toDouble)*100)
       }
     })
 
@@ -163,7 +189,11 @@ class Main extends Application {
     // キーイベント処理
     scene.setOnKeyPressed(e => {
       e.getCode match {
-        case KeyCode.SPACE => embeddedMediaPlayer.controls().pause()
+        case KeyCode.SPACE => embeddedMediaPlayer.controls().pause();if (embeddedMediaPlayer.status().isPlaying){
+          pauseButton.setGraphic(new ImageView(playButtonImage))
+        } else {
+          pauseButton.setGraphic(new ImageView(stopButtonImage))
+        }
         case KeyCode.RIGHT => embeddedMediaPlayer.controls().skipTime(10000)
         case KeyCode.LEFT => embeddedMediaPlayer.controls().skipTime(-10000)
         case KeyCode.UP => embeddedMediaPlayer.audio().setVolume(embeddedMediaPlayer.audio().volume()+5)
