@@ -78,6 +78,9 @@ class Main extends Application {
 
     // 再生バー作成
     val timeSlider = new Slider()
+    timeSlider.setOnMouseDragged(event => {
+      embeddedMediaPlayer.controls().setPosition((timeSlider.getValue/100).toFloat)
+    })
 
     toolBarHBox.getChildren.addAll(timeLabel,pauseButton)
     toolBarHBox.setAlignment(Pos.CENTER)
