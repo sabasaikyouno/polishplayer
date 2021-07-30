@@ -76,13 +76,34 @@ class Main extends Application {
       }
     })
 
+    // forward ボタン
+    val forwardButtonImage = new Image(getClass.getResourceAsStream("forward.png"))
+    val forwardButton = new Button()
+    forwardButton.setGraphic(new ImageView(forwardButtonImage))
+    forwardButton.setStyle("-fx-background-color:Transparent;-fx-background-radius:0")
+    forwardButton.setOnMouseClicked(event => {
+      embeddedMediaPlayer.controls().skipTime(10000)
+    })
+
+    // back ボタン
+    val backButtonImage = new Image(getClass.getResourceAsStream("back.png"))
+    val backButton = new Button()
+    backButton.setGraphic(new ImageView(backButtonImage))
+    backButton.setStyle("-fx-background-color:Transparent;-fx-background-radius:0")
+    backButton.setOnMouseClicked(event => {
+      embeddedMediaPlayer.controls().skipTime(-10000)
+    })
+
     // 再生バー作成
     val timeSlider = new Slider()
     timeSlider.setOnMouseDragged(event => {
       embeddedMediaPlayer.controls().setPosition((timeSlider.getValue/100).toFloat)
     })
+    timeSlider.setOnMouseClicked(event => {
+      embeddedMediaPlayer.controls().setPosition((timeSlider.getValue/100).toFloat)
+    })
 
-    toolBarHBox.getChildren.addAll(timeLabel,pauseButton)
+    toolBarHBox.getChildren.addAll(timeLabel,backButton,pauseButton,forwardButton)
     toolBarHBox.setAlignment(Pos.CENTER)
 
     toolBar.setAlignment(Pos.BOTTOM_CENTER)
