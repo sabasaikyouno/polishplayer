@@ -8,7 +8,7 @@ import javafx.scene.Scene
 import javafx.scene.image.{Image, ImageView}
 import javafx.scene.layout.{Background, BackgroundFill, BorderPane, CornerRadii, HBox, StackPane, VBox}
 import javafx.scene.paint.Color
-import javafx.stage.{Stage, StageStyle}
+import javafx.stage.{Stage, StageStyle, Screen}
 import javafx.scene.control._
 import javafx.geometry.{Insets, Pos}
 import javafx.scene.input.{DragEvent, KeyCode, KeyEvent, MouseEvent, TransferMode}
@@ -139,6 +139,7 @@ class Main extends Application {
     val maximizedButtonImage = new Image(getClass.getResourceAsStream("maximized.png"))
     val minimizedButtonImage = new Image(getClass.getResourceAsStream("minimized.png"))
     val maximizedButton = new Button()
+    val primaryScreenBounds = Screen.getPrimary.getVisualBounds
     maximizedButton.setGraphic(new ImageView(maximizedButtonImage))
     maximizedButton.setStyle("-fx-background-color:Black;-fx-background-radius:0")
     maximizedButton.setOnMouseClicked(event => {
@@ -147,6 +148,8 @@ class Main extends Application {
         maximizedButton.setGraphic(new ImageView(maximizedButtonImage))
       } else {
         primaryStage.setMaximized(true)
+        primaryStage.setWidth(primaryScreenBounds.getWidth)
+        primaryStage.setHeight(primaryScreenBounds.getHeight)
         maximizedButton.setGraphic(new ImageView(minimizedButtonImage))
       }
       videoStack.requestFocus()
