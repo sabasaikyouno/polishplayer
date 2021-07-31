@@ -94,6 +94,22 @@ class Main extends Application {
       embeddedMediaPlayer.controls().skipTime(-10000)
     })
 
+    // フルスクリーンボタン
+    val fullscreenReleaseButtonImage = new Image(getClass.getResourceAsStream("fullscreenRelease.png"))
+    val fullscreenButtonImage = new Image(getClass.getResourceAsStream("fullscreen.png"))
+    val fullscreenButton = new Button()
+    fullscreenButton.setGraphic(new ImageView(fullscreenButtonImage))
+    fullscreenButton.setStyle("-fx-background-color:Transparent;-fx-background-radius:0")
+    fullscreenButton.setOnMouseClicked(event => {
+      if (primaryStage.isFullScreen){
+        primaryStage.setFullScreen(false)
+        fullscreenButton.setGraphic(new ImageView(fullscreenButtonImage))
+      } else {
+        primaryStage.setFullScreen(true)
+        fullscreenButton.setGraphic(new ImageView(fullscreenReleaseButtonImage))
+      }
+    })
+
     // 再生バー作成
     val timeSlider = new Slider()
     timeSlider.setOnMouseDragged(event => {
@@ -103,7 +119,7 @@ class Main extends Application {
       embeddedMediaPlayer.controls().setPosition((timeSlider.getValue/100).toFloat)
     })
 
-    toolBarHBox.getChildren.addAll(timeLabel,backButton,pauseButton,forwardButton)
+    toolBarHBox.getChildren.addAll(timeLabel,backButton,pauseButton,forwardButton,fullscreenButton)
     toolBarHBox.setAlignment(Pos.CENTER)
 
     toolBar.setAlignment(Pos.BOTTOM_CENTER)
@@ -148,6 +164,8 @@ class Main extends Application {
         maximizedButton.setGraphic(new ImageView(maximizedButtonImage))
       } else {
         primaryStage.setMaximized(true)
+        primaryStage.setX(0)
+        primaryStage.setY(0)
         primaryStage.setWidth(primaryScreenBounds.getWidth)
         primaryStage.setHeight(primaryScreenBounds.getHeight)
         maximizedButton.setGraphic(new ImageView(minimizedButtonImage))
