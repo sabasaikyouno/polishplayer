@@ -275,7 +275,7 @@ class Main extends Application {
       }
     })
 
-    // マウスを動かすとタイトルバーを表示させる
+    // マウスを動かすとツールバーを表示させる
     videoStack.setOnMouseMoved(event => {
       toolBar.setOpacity(1)
     })
