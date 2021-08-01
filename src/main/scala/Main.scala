@@ -173,6 +173,16 @@ class Main extends Application {
       videoStack.requestFocus()
     })
 
+    // マウスがある時以外タイトルバーを消す(透明になっている)
+    // マウスがタイトルバーに入った時タイトルバーを表示
+    titleBar.setOnMouseEntered(event => {
+      titleBar.setOpacity(1)
+    })
+    // マウスがタイトルバーから離れたときタイトルバー非表示
+    titleBar.setOnMouseExited(event => {
+      titleBar.setOpacity(0)
+    })
+
     // 重なって押せない要素を押せるようにする
     titleButton.setPickOnBounds(false)
     titleBar.setPickOnBounds(false)
