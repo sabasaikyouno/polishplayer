@@ -81,7 +81,15 @@ object ToolbarCreator {
       embeddedMediaPlayer.controls().setPosition((timeSlider.getValue/100).toFloat)
     })
 
-    toolBarHBox.getChildren.addAll(timeLabel,backButton,pauseButton,forwardButton,fullscreenButton)
+    // ボリュームバー作成
+    val volumeSlider = new Slider()
+    volumeSlider.setPrefWidth(100)
+    volumeSlider.setOnMouseDragged(event => {
+      embeddedMediaPlayer.audio().setVolume(volumeSlider.getValue.toInt)
+    })
+
+
+    toolBarHBox.getChildren.addAll(volumeSlider,timeLabel,backButton,pauseButton,forwardButton,fullscreenButton)
     toolBarHBox.setAlignment(Pos.CENTER)
 
     toolBar.setAlignment(Pos.BOTTOM_CENTER)
@@ -108,6 +116,11 @@ object ToolbarCreator {
         Platform.runLater(() => {
           pauseButton.setGraphic(new ImageView(stopButtonImage))
         })
+      }
+
+      // ボリュームバーの初期位置をセットする
+      override def mediaPlayerReady(mediaPlayer: MediaPlayer): Unit = {
+        volumeSlider.setValue(embeddedMediaPlayer.audio().volume())
       }
 
     })
