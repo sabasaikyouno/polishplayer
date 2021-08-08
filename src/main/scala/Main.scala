@@ -22,6 +22,7 @@ import uk.co.caprica.vlcj.player.base.{MediaPlayer, MediaPlayerEventAdapter, Sta
 import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 import uk.co.caprica.vlcj.player.embedded.fullscreen.adaptive.AdaptiveFullScreenStrategy
+import com.github.tototoshi.csv._
 
 object Main extends App {
   Application.launch(classOf[Main], args:_*)
@@ -118,7 +119,32 @@ class Main extends Application {
       toolBar.setOpacity(1)
     })
 
-  }
 
+    // アプリを終了したときのイベント
+    primaryStage.showingProperty().addListener(event => {
+
+      // どこまで再生したかを csv に保存している
+      if (embeddedMediaPlayer.media().isValid){
+        val video_mrl = embeddedMediaPlayer.media().info().mrl()
+        val video_position = embeddedMediaPlayer.status().position()
+
+        val f = new File("src\\main\\scala\\resume_play.csv")
+
+        // ファイルの読み込み
+        val reader = CSVReader.open(f)
+        val resume_play_csv_List = reader.all()
+        reader.close()
+
+        // ファイルの書き込み
+        val writer = CSVWriter.open(f)
+        writer.writeAll(resume_play_csv_List.filter(l =>
+          l.head != video_mrl) ::: List(List(video_mrl, video_position))
+        )
+        writer.close()
+      }
+
+    })
+
+  }
 }
 
