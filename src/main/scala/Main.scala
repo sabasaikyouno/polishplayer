@@ -79,7 +79,7 @@ class Main extends Application {
         val db = event.getDragboard
         if (db.hasFiles) {
           db.getFiles.toArray(Array[File]()).toSeq.foreach { f =>
-            embeddedMediaPlayer.media().play(f.getAbsolutePath)
+            MoviePlayer.play(embeddedMediaPlayer,f.getAbsolutePath)
           }
         }
         event.consume()
@@ -125,6 +125,7 @@ class Main extends Application {
 
       // どこまで再生したかを csv に保存している
       if (embeddedMediaPlayer.media().isValid){
+
         val video_mrl = embeddedMediaPlayer.media().info().mrl()
         val video_position = embeddedMediaPlayer.status().position()
 
@@ -141,6 +142,7 @@ class Main extends Application {
           l.head != video_mrl) ::: List(List(video_mrl, video_position))
         )
         writer.close()
+        
       }
 
     })
