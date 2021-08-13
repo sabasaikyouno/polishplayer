@@ -24,6 +24,9 @@ import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 import uk.co.caprica.vlcj.player.embedded.fullscreen.adaptive.AdaptiveFullScreenStrategy
 import com.github.tototoshi.csv._
 
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+
 object Main extends App {
   Application.launch(classOf[Main], args:_*)
 }
@@ -110,7 +113,8 @@ class Main extends Application {
     videoStack.setOnMouseReleased(event => {
       event.getButton match {
         case MouseButton.PRIMARY => videoStack.requestFocus() // 動画にフォーカスさせる
-        case MouseButton.SECONDARY => toolBar.setOpacity(0) // 右クリックしたらツールバーを消す(透明にする)
+        case MouseButton.SECONDARY =>
+          if(toolBar.getOpacity == 0) toolBar.setOpacity(1) else toolBar.setOpacity(0) // 右クリックしたらツールバーを消す(透明にする)、再表示
       }
     })
 
@@ -118,7 +122,6 @@ class Main extends Application {
     videoStack.setOnMouseMoved(event => {
       toolBar.setOpacity(1)
     })
-
 
     // アプリを終了したときのイベント
     primaryStage.showingProperty().addListener(event => {
