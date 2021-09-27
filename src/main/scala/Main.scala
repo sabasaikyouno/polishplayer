@@ -1,30 +1,18 @@
-
-
 import java.io.File
 
-import javafx.application.{Application, Platform}
-import javafx.event.EventHandler
-import javafx.scene.Scene
-import javafx.scene.image.{Image, ImageView}
-import javafx.scene.layout.{Background, BackgroundFill, BorderPane, CornerRadii, HBox, StackPane, VBox}
-import javafx.scene.paint.Color
-import javafx.stage.{Screen, Stage, StageStyle}
-import javafx.scene.control._
-import javafx.geometry.{Insets, Pos}
-import javafx.scene.input.{DragEvent, KeyCode, KeyEvent, MouseButton, MouseEvent, TransferMode}
-import javafx.scene.shape.Rectangle
-import javafx.scene.text.TextAlignment
-import uk.co.caprica.vlcj.javafx.videosurface.ImageViewVideoSurfaceFactory.videoSurfaceForImageView
-import javax.xml.crypto.Data
-import uk.co.caprica.vlcj.factory.MediaPlayerFactory
-import uk.co.caprica.vlcj.media.{Media, MediaEventListener, MediaParsedStatus, MediaRef, Meta, Picture}
-import uk.co.caprica.vlcj.player.base.{MediaPlayer, MediaPlayerEventAdapter, State}
-import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent
-import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
-import uk.co.caprica.vlcj.player.embedded.fullscreen.adaptive.AdaptiveFullScreenStrategy
 import com.github.tototoshi.csv._
+import javafx.application.Application
+import javafx.event.EventHandler
+import javafx.geometry.Insets
+import javafx.scene.Scene
+import javafx.scene.image.ImageView
+import javafx.scene.input.{DragEvent, KeyCode, MouseButton, TransferMode}
+import javafx.scene.layout.{Background, BackgroundFill, CornerRadii, StackPane}
+import javafx.scene.paint.Color
+import javafx.stage.{Stage, StageStyle}
+import uk.co.caprica.vlcj.factory.MediaPlayerFactory
+import uk.co.caprica.vlcj.javafx.videosurface.ImageViewVideoSurfaceFactory.videoSurfaceForImageView
 
-import scala.concurrent.ExecutionContext.Implicits.global
 
 object Main extends App {
   Application.launch(classOf[Main], args:_*)
