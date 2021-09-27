@@ -25,7 +25,6 @@ import uk.co.caprica.vlcj.player.embedded.fullscreen.adaptive.AdaptiveFullScreen
 import com.github.tototoshi.csv._
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 
 object Main extends App {
   Application.launch(classOf[Main], args:_*)
