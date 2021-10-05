@@ -119,6 +119,7 @@ class Main extends Application {
         val video_mrl = embeddedMediaPlayer.media().info().mrl()
         val video_position = embeddedMediaPlayer.status().position()
 
+        // ファイルパス
         val f = new File("src\\main\\scala\\resume_play.csv")
 
         // ファイルの読み込み
