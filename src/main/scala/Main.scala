@@ -33,7 +33,7 @@ class Main extends Application {
     
     val videoStack = new StackPane()
 
-    // ウィンドウ設定
+    // window設定
     videoStack.setPrefSize(800,600)
     videoStack.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)))
     primaryStage.initStyle(StageStyle.UNDECORATED)
