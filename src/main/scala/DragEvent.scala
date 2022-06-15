@@ -1,12 +1,14 @@
+import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.input.TransferMode
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
+import scalafx.Includes._
 
 object DragEvent {
 
-  def setDragEvent(scene: Scene, embeddedMediaPlayer: EmbeddedMediaPlayer) = {
-    setDragOver(scene)
-    setDragDropped(scene, embeddedMediaPlayer)
+  def setDragEvent()(implicit stage: PrimaryStage, embeddedMediaPlayer: EmbeddedMediaPlayer) = {
+    setDragOver(stage.getScene)
+    setDragDropped(stage.getScene, embeddedMediaPlayer)
   }
 
   private def setDragOver(scene: Scene) =
