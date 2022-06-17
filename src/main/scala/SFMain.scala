@@ -4,6 +4,7 @@ import MediaPlayerCreator._
 import DragEvent.setDragEvent
 import KeyMouseEvent._
 import scalafx.Includes._
+import SfxTitleBarCreator.createTitleBar
 
 object SFMain extends JFXApp3 {
   override def start(): Unit = {
@@ -13,8 +14,9 @@ object SFMain extends JFXApp3 {
     implicit val stageImp = stage
     implicit val embeddedMediaPlayer = createMediaPlayer(videoImageView)
 
-    videoStack.children = Seq(videoImageView)
+    videoStack.children = Seq(videoImageView, createTitleBar())
 
+    videoStack.requestFocus()
     setDragEvent()
     setKeyMouseEvent()
   }
