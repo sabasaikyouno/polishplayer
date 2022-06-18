@@ -9,18 +9,18 @@ import javafx.scene.paint.Color
 import javafx.stage.Stage
 import uk.co.caprica.vlcj.player.base.{MediaPlayer, MediaPlayerEventAdapter}
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
+import TimeFmt.timeFmt
 
 object ToolbarCreator {
 
-  def create(embeddedMediaPlayer: EmbeddedMediaPlayer, primaryStage:Stage, scene: Scene): VBox ={
-    val timeFmt = new TimeFmt
+  def create(embeddedMediaPlayer: EmbeddedMediaPlayer, primaryStage:Stage, scene: Scene): VBox = {
     val toolBar = new VBox()
     val toolBarHBox = new HBox(5)
 
     // ツールバー
     // 時間表示設定
     val timeLabel = new Label
-    timeLabel.setText(timeFmt.fmt(0))
+    timeLabel.setText(timeFmt(0))
     timeLabel.setTextFill(Color.WHITE)
 
     // 再生、停止ボタン
@@ -101,21 +101,9 @@ object ToolbarCreator {
       // 時間表示
       override def timeChanged(mediaPlayer: MediaPlayer, newTime: Long): Unit = {
         Platform.runLater(() => {
-          timeLabel.setText(timeFmt.fmt(newTime))
+          timeLabel.setText(timeFmt(newTime))
         })
         timeSlider.setValue((newTime.toDouble/embeddedMediaPlayer.status().length().toDouble)*100)
-      }
-
-      // 再生、停止されたとき pause ボタンの画像を変える
-      override def paused(mediaPlayer: MediaPlayer): Unit = {
-        Platform.runLater(() => {
-          pauseButton.setGraphic(new ImageView(playButtonImage))
-        })
-      }
-      override def playing(mediaPlayer: MediaPlayer): Unit = {
-        Platform.runLater(() => {
-          pauseButton.setGraphic(new ImageView(stopButtonImage))
-        })
       }
 
       // ボリュームバーの初期位置をセットする

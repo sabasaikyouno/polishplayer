@@ -37,6 +37,7 @@ object SfxTitleBarCreator {
       height = 40
       fill = Color.Transparent
       width.bind(stage.width)
+
       onMousePressed = pressEvent =>
         onMouseDragged = dragEvent => {
           stage.x = dragEvent.getScreenX - pressEvent.getSceneX
@@ -46,13 +47,13 @@ object SfxTitleBarCreator {
 
   // 終了ボタン
   private def createExitButton() =
-    createButtonHasEvent("exit.png"){ _ =>
+    createButtonHasEvent("exit.png") { _ =>
       Platform.exit()
     }
 
   // アイコン化(最小化？言い方がよくわからない）
   private def createIconifiedButton()(implicit stage: PrimaryStage, videoStack: StackPane) =
-    createButtonHasEvent("iconified.png"){ _ =>
+    createButtonHasEvent("iconified.png") { _ =>
       stage.setIconified(true)
       videoStack.requestFocus()
     }
@@ -66,6 +67,7 @@ object SfxTitleBarCreator {
     new Button {
       graphic = maximizedButtonImage
       style = "-fx-background-color:Black;-fx-background-radius:0"
+
       onMouseClicked = _ => {
         if (stage.isMaximized) {
           stage.maximized = false

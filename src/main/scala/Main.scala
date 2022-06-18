@@ -22,7 +22,6 @@ class Main extends Application {
 
   val mediaPlayerFactory = new MediaPlayerFactory()
   val embeddedMediaPlayer = mediaPlayerFactory.mediaPlayers().newEmbeddedMediaPlayer()
-  val timeFmt = new TimeFmt
   val videoImageView = new ImageView()
   videoImageView.setPreserveRatio(true)
 

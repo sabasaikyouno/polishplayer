@@ -5,19 +5,18 @@ import javafx.scene.input.KeyCode._
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 import MediaPlayerEvent._
 import javafx.scene.input.MouseButton._
-import scalafx.scene.layout.StackPane
+import scalafx.scene.layout.{StackPane, VBox}
 
 object KeyMouseEvent {
-  def setKeyMouseEvent()(
+  def setKeyMouseEvent(toolBar: VBox)(
     implicit
     stage: PrimaryStage,
     embeddedMediaPlayer: EmbeddedMediaPlayer,
     videoStack: StackPane) =
   {
     setKeyEvent(stage.getScene)
-    setMouseEvent()
+    setMouseEvent(toolBar)
   }
-
 
   private def setKeyEvent(scene: Scene)(implicit stage: PrimaryStage, embeddedMediaPlayer: EmbeddedMediaPlayer) =
     scene.onKeyPressed = keyEvent =>
@@ -31,12 +30,11 @@ object KeyMouseEvent {
         case F11 => fullScreen()
       }
 
-  private def setMouseEvent()(implicit videoStack: StackPane) = {
+  private def setMouseEvent(toolBar: VBox)(implicit videoStack: StackPane) = {
     videoStack.onMouseReleased = mouseEvent =>
       mouseEvent.getButton match {
         case PRIMARY => videoStack.requestFocus()
-        case SECONDARY =>
-          ??? // 1 ^ 1 ... 0 ^ 1
+        case SECONDARY => toolBar.opacity = toolBar.getOpacity.toInt ^ 1
       }
   }
 
