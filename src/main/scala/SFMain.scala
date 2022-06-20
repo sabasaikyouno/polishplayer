@@ -7,6 +7,7 @@ import scalafx.Includes._
 import SfxTitleBarCreator.createTitleBar
 import SfxToolBarCreator.createToolBar
 import scalafx.scene.Scene
+import ClosedEvent.setClosedEvent
 
 object SFMain extends JFXApp3 {
   override def start(): Unit = {
@@ -22,7 +23,9 @@ object SFMain extends JFXApp3 {
     videoStack.children = Seq(videoImageView, toolBar, createTitleBar())
 
     videoStack.requestFocus()
+
     setDragEvent()
     setKeyMouseEvent(toolBar)
+    setClosedEvent()
   }
 }

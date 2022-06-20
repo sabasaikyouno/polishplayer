@@ -8,6 +8,7 @@ import javafx.scene.input.MouseButton._
 import scalafx.scene.layout.{StackPane, VBox}
 
 object KeyMouseEvent {
+
   def setKeyMouseEvent(toolBar: VBox)(
     implicit
     stage: PrimaryStage,

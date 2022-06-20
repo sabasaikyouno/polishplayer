@@ -2,6 +2,7 @@ import scalafx.application.JFXApp3.PrimaryStage
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 
 object MediaPlayerEvent {
+
   def pause()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
     embeddedMediaPlayer.controls().pause()
 
