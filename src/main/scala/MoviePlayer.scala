@@ -5,23 +5,24 @@ import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 
 object MoviePlayer {
 
-  def play(embeddedMediaPlayer: EmbeddedMediaPlayer, filePath: String): Unit ={
-
-    val f = new File("src\\main\\scala\\resume_play.csv")
-
-    // ファイルの読み込み
-    val reader = CSVReader.open(f)
-    val resume_play_csv_List = reader.all()
-    reader.close()
+  def play(embeddedMediaPlayer: EmbeddedMediaPlayer, filePath: String) = {
 
     // 動画再生
     embeddedMediaPlayer.media().play(filePath)
 
     // 前回どこまで再生されたかを取得し、前回の位置にスキップする
-    val position = resume_play_csv_List.find(x => x.head == embeddedMediaPlayer.media().info().mrl())
+    val position = resumePlayList(filePath).find(_.head == embeddedMediaPlayer.media().info().mrl())
     if (position.isDefined) {
       embeddedMediaPlayer.controls().setPosition(position.get(1).toFloat)
     }
+  }
 
+  private def resumePlayList(resumePlayPath: String) = {
+    val reader = CSVReader.open(new File(resumePlayPath))
+
+    try
+      reader.all()
+    finally
+      reader.close()
   }
 }
