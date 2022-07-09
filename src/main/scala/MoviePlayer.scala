@@ -21,7 +21,7 @@ object MoviePlayer {
   }
 
   private def resumePlayList() = {
-    val resumePlayFile = new File("src\\main\\scala\\resume_play.csv")
+    val resumePlayFile = new File("src\\main\\resources\\resume_play.csv")
     val reader = CSVReader.open(resumePlayFile)
 
     try

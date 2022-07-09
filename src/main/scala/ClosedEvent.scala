@@ -21,7 +21,7 @@ object ClosedEvent {
   }
 
   private def resumePlayWrite(videoMrl: String, videoPosition: Float) = {
-    val resumePlayFile = new File("src\\main\\scala\\resume_play.csv")
+    val resumePlayFile = new File("src\\main\\resources\\resume_play.csv")
     val resumePlayList = getResumePlayList(resumePlayFile)
     val writer = CSVWriter.open(resumePlayFile)
 
