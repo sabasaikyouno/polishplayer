@@ -23,7 +23,7 @@ object DragEvent {
     scene.onDragDropped = event => {
       val db = event.getDragboard
       db.getFiles.forEach { f =>
-        MoviePlayer.play(embeddedMediaPlayer,f.getAbsolutePath)
+        MoviePlayer.play(embeddedMediaPlayer, f.getAbsolutePath)
       }
       event.consume()
     }

@@ -7,7 +7,7 @@ import scalafx.Includes._
 import SfxTitleBarCreator.createTitleBar
 import SfxToolBarCreator.createToolBar
 import scalafx.scene.Scene
-import ClosedEvent.setClosedEvent
+import ClosedEvent.setClosedStageEvent
 
 object Main extends JFXApp3 {
   override def start(): Unit = {
@@ -26,6 +26,6 @@ object Main extends JFXApp3 {
 
     setDragEvent()
     setKeyMouseEvent(toolBar)
-    setClosedEvent()
+    setClosedStageEvent()
   }
 }

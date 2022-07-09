@@ -3,7 +3,6 @@ import TimeFmt.timeFmt
 import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.paint.Color
 import ButtonImageView._
-import javafx.application.Platform
 import scalafx.scene.input.MouseEvent
 import javafx.scene.input.KeyCode._
 import scalafx.Includes._
@@ -11,7 +10,7 @@ import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.geometry.Pos
 import scalafx.scene.Scene
 import scalafx.scene.layout.{HBox, VBox}
-import uk.co.caprica.vlcj.player.base.{MediaPlayer, MediaPlayerEventAdapter}
+import MediaPlayerEvent.timeChanged
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 
 object SfxToolBarCreator {
@@ -28,14 +27,7 @@ object SfxToolBarCreator {
   }
 
   private def setTimeChanged(timeLabel: Label, timeSlider: Slider)(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
-    embeddedMediaPlayer.events().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
-      override def timeChanged(mediaPlayer: MediaPlayer, newTime: Long): Unit = {
-        Platform.runLater(() =>
-          timeLabel.text = timeFmt(newTime)
-        )
-        timeSlider.value = (newTime.toDouble / embeddedMediaPlayer.status().length().toDouble) * 100
-      }
-    })
+    timeChanged(timeLabel, timeSlider)
 
   private def setSceneEvent(pauseButton: Button)(implicit scene: Scene, embeddedMediaPlayer: EmbeddedMediaPlayer) =
     scene.onKeyPressed = key =>
