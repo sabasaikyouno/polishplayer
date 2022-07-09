@@ -38,4 +38,11 @@ object MediaPlayerEvent {
         timeSlider.value = (newTime.toDouble / embeddedMediaPlayer.status().length().toDouble) * 100
       }
     })
+
+  def volumeChanged(volumeSlider: Slider)(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
+    embeddedMediaPlayer.events().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
+      override def volumeChanged(mediaPlayer: MediaPlayer, volume: Float): Unit = {
+        volumeSlider.value = volume * 100
+      }
+    })
 }

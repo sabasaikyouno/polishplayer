@@ -10,7 +10,7 @@ import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.geometry.Pos
 import scalafx.scene.Scene
 import scalafx.scene.layout.{HBox, VBox}
-import MediaPlayerEvent.timeChanged
+import MediaPlayerEvent.{timeChanged, volumeChanged}
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 
 object SfxToolBarCreator {
@@ -23,11 +23,17 @@ object SfxToolBarCreator {
     val pauseButton = createPauseButton()
     setSceneEvent(pauseButton)
 
-    createToolBarVBox(timeLabel, timeSlider, pauseButton)
+    val volumeSlider = createVolumeSlider()
+    setVolumeChanged(volumeSlider)
+
+    createToolBarVBox(timeLabel, timeSlider, pauseButton, volumeSlider)
   }
 
   private def setTimeChanged(timeLabel: Label, timeSlider: Slider)(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
     timeChanged(timeLabel, timeSlider)
+
+  private def setVolumeChanged(volumeSlider: Slider)(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
+    volumeChanged(volumeSlider)
 
   private def setSceneEvent(pauseButton: Button)(implicit scene: Scene, embeddedMediaPlayer: EmbeddedMediaPlayer) =
     scene.onKeyPressed = key =>
@@ -37,17 +43,17 @@ object SfxToolBarCreator {
         else
           pauseButton.graphic = stopButtonImageView
 
-  private def createToolBarVBox(timeLabel: Label, timeSlider: Slider, pauseButton: Button)(implicit stage: PrimaryStage, embeddedMediaPlayer: EmbeddedMediaPlayer) =
+  private def createToolBarVBox(timeLabel: Label, timeSlider: Slider, pauseButton: Button, volumeSlider: Slider)(implicit stage: PrimaryStage, embeddedMediaPlayer: EmbeddedMediaPlayer) =
     new VBox {
       alignment = Pos.BottomCenter
-      children = Seq(timeSlider, createToolBarHBox(timeLabel, pauseButton))
+      children = Seq(timeSlider, createToolBarHBox(timeLabel, pauseButton, volumeSlider))
     }
 
-  private def createToolBarHBox(timeLabel: Label, pauseButton: Button)(implicit stage: PrimaryStage, embeddedMediaPlayer: EmbeddedMediaPlayer) =
+  private def createToolBarHBox(timeLabel: Label, pauseButton: Button, volumeSlider: Slider)(implicit stage: PrimaryStage, embeddedMediaPlayer: EmbeddedMediaPlayer) =
     new HBox(5) {
       alignment = Pos.Center
       children = Seq(
-        createVolumeSlider(),
+        volumeSlider,
         timeLabel,
         createBackButton(),
         pauseButton,
