@@ -2,9 +2,9 @@ import TimeFmt.timeFmt
 import javafx.application.Platform
 import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.scene.control.{Label, Slider}
-import uk.co.caprica.vlcj.media.MediaRef
 import uk.co.caprica.vlcj.player.base.{MediaPlayer, MediaPlayerEventAdapter}
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
+import ResumePlayList.getResumeVolume
 
 object MediaPlayerEvent {
 
@@ -43,6 +43,13 @@ object MediaPlayerEvent {
     embeddedMediaPlayer.events().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
       override def volumeChanged(mediaPlayer: MediaPlayer, volume: Float): Unit = {
         volumeSlider.value = volume * 100
+      }
+    })
+
+  def setMediaPlayerReady()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
+    embeddedMediaPlayer.events().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
+      override def mediaPlayerReady(mediaPlayer: MediaPlayer): Unit = {
+        embeddedMediaPlayer.audio().setVolume(getResumeVolume())
       }
     })
 }

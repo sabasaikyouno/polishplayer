@@ -1,8 +1,9 @@
 import java.io.File
 
-import com.github.tototoshi.csv.{CSVReader, CSVWriter}
+import com.github.tototoshi.csv.CSVWriter
 import scalafx.application.JFXApp3.PrimaryStage
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
+import ResumePlayList.getResumePlayList
 
 object ClosedEvent {
 
@@ -13,33 +14,24 @@ object ClosedEvent {
 
   def closedEvent(embeddedMediaPlayer: EmbeddedMediaPlayer) = {
     if (embeddedMediaPlayer.media().isValid) {
-      val videoMrl = embeddedMediaPlayer.media().info().mrl()
-      val videoPosition = embeddedMediaPlayer.status().position()
+      val mrl = embeddedMediaPlayer.media().info().mrl()
+      val position = embeddedMediaPlayer.status().position()
+      val volume = embeddedMediaPlayer.audio().volume()
 
-      resumePlayWrite(videoMrl, videoPosition)
+      resumePlayWrite(mrl, position, volume)
     }
   }
 
-  private def resumePlayWrite(videoMrl: String, videoPosition: Float) = {
+  private def resumePlayWrite(mrl: String, position: Float, volume: Int) = {
     val resumePlayFile = new File("src\\main\\resources\\resume_play.csv")
-    val resumePlayList = getResumePlayList(resumePlayFile)
+    val resumePlayList = getResumePlayList()
     val writer = CSVWriter.open(resumePlayFile)
 
     try
       writer.writeAll(
-        List(List(videoMrl, videoPosition)) ::: resumePlayList.filter(_.head != videoMrl)
+        List(List(mrl, position, volume)) ::: resumePlayList.filter(_.head != mrl)
       )
     finally
       writer.close()
   }
-
-  private def getResumePlayList(resumePlayFile: File) = {
-    val reader = CSVReader.open(resumePlayFile)
-
-    try
-      reader.all()
-    finally
-      reader.close()
-  }
-
 }
