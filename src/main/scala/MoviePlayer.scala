@@ -14,11 +14,13 @@ object MoviePlayer {
     embeddedMediaPlayer.media().play(filePath)
 
     // 前回どこまで再生されたかを取得し、前回の位置にスキップする
-    val position = resumePlayList().find(_.head == embeddedMediaPlayer.media().info().mrl())
-    if (position.isDefined) {
-      embeddedMediaPlayer.controls().setPosition(position.get(1).toFloat)
-    }
+    embeddedMediaPlayer.controls().setPosition(getResumePosition(embeddedMediaPlayer))
   }
+
+  private def getResumePosition(embeddedMediaPlayer: EmbeddedMediaPlayer) =
+    resumePlayList()
+      .find(_.head == embeddedMediaPlayer.media().info().mrl())
+      .fold[Float](0)(_.apply(1).toFloat)
 
   private def resumePlayList() = {
     val resumePlayFile = new File("src\\main\\resources\\resume_play.csv")
