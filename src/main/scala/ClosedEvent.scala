@@ -15,7 +15,7 @@ object ClosedEvent {
   def closedEvent(embeddedMediaPlayer: EmbeddedMediaPlayer) = {
     if (embeddedMediaPlayer.media().isValid) {
       val mrl = embeddedMediaPlayer.media().info().mrl()
-      val position = embeddedMediaPlayer.status().position()
+      val position = getPosition(embeddedMediaPlayer)
       val volume = embeddedMediaPlayer.audio().volume()
 
       resumePlayWrite(mrl, position, volume)
@@ -33,5 +33,11 @@ object ClosedEvent {
       )
     finally
       writer.close()
+  }
+
+  private def getPosition(embeddedMediaPlayer: EmbeddedMediaPlayer): Float = {
+    val isEnding = embeddedMediaPlayer.status().position() > 0.95
+
+    if (isEnding) 0 else embeddedMediaPlayer.status().position()
   }
 }
