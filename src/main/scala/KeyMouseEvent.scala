@@ -37,6 +37,12 @@ object KeyMouseEvent {
         case PRIMARY => videoStack.requestFocus()
         case SECONDARY => toolBar.opacity = toolBar.getOpacity.toInt ^ 1
       }
+
+    videoStack.onMouseExited = _ =>
+      toolBar.opacity = 0
+
+    videoStack.onMouseEntered = _ =>
+      toolBar.opacity = 1
   }
 
 }
