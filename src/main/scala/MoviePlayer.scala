@@ -14,4 +14,7 @@ object MoviePlayer {
     // 前回の位置にセットする
     embeddedMediaPlayer.controls().setPosition(getResumePosition(embeddedMediaPlayer))
   }
+
+  def startPaused(embeddedMediaPlayer: EmbeddedMediaPlayer, filePath: String) =
+    embeddedMediaPlayer.media().startPaused(filePath)
 }

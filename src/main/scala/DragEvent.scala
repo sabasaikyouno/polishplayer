@@ -6,9 +6,9 @@ import scalafx.Includes._
 
 object DragEvent {
 
-  def setDragEvent()(implicit stage: PrimaryStage, embeddedMediaPlayer: EmbeddedMediaPlayer) = {
+  def setDragEvent(timeThumbnailEmbedded: EmbeddedMediaPlayer)(implicit stage: PrimaryStage, embeddedMediaPlayer: EmbeddedMediaPlayer) = {
     setDragOver(stage.getScene)
-    setDragDropped(stage.getScene, embeddedMediaPlayer)
+    setDragDropped(stage.getScene, embeddedMediaPlayer, timeThumbnailEmbedded)
   }
 
   private def setDragOver(scene: Scene) =
@@ -19,11 +19,12 @@ object DragEvent {
       event.consume()
     }
 
-  private def setDragDropped(scene: Scene, embeddedMediaPlayer: EmbeddedMediaPlayer) =
+  private def setDragDropped(scene: Scene, embeddedMediaPlayer: EmbeddedMediaPlayer, timeThumbnailEmbedded: EmbeddedMediaPlayer) =
     scene.onDragDropped = event => {
       val db = event.getDragboard
       db.getFiles.forEach { f =>
         MoviePlayer.play(embeddedMediaPlayer, f.getAbsolutePath)
+        MoviePlayer.startPaused(timeThumbnailEmbedded, f.getAbsolutePath)
       }
       event.consume()
     }

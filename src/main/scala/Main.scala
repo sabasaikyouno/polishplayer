@@ -9,6 +9,7 @@ import SfxToolBarCreator.createToolBar
 import scalafx.scene.Scene
 import ClosedEvent.setClosedStageEvent
 import MediaPlayerEvent.setMediaPlayerReady
+import TimeThumbnailCreator._
 
 object Main extends JFXApp3 {
   override def start(): Unit = {
@@ -19,14 +20,18 @@ object Main extends JFXApp3 {
     implicit val embeddedMediaPlayer = createMediaPlayer(videoImageView)
     implicit val sceneImp: Scene = stage.getScene
 
-    val toolBar = createToolBar()
 
-    videoStack.children = Seq(videoImageView, toolBar, createTitleBar())
+    val timeThumbnail = createTimeThumbnailImageView()
+    val timeThumbnailEmbedded = createTimeThumbnailEmbedded(timeThumbnail)
+
+    val toolBar = createToolBar(timeThumbnail, timeThumbnailEmbedded)
+
+    videoStack.children = Seq(videoImageView, timeThumbnail, toolBar, createTitleBar())
 
     videoStack.requestFocus()
 
-    setDragEvent()
-    setKeyMouseEvent(toolBar)
+    setDragEvent(timeThumbnailEmbedded)
+    setKeyMouseEvent(toolBar, timeThumbnail)
     setClosedStageEvent()
     setMediaPlayerReady()
   }

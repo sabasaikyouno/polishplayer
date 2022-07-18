@@ -15,9 +15,9 @@ import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 
 object SfxToolBarCreator {
 
-  def createToolBar()(implicit stage: PrimaryStage, scene: Scene, embeddedMediaPlayer: EmbeddedMediaPlayer) = {
+  def createToolBar(timeThumbnail: ImageView, timeThumbnailEmbedded: EmbeddedMediaPlayer)(implicit stage: PrimaryStage, scene: Scene, embeddedMediaPlayer: EmbeddedMediaPlayer) = {
     val timeLabel = createTimeLabel()
-    val timeSlider = createTimeSlider()
+    val timeSlider = createTimeSlider(timeThumbnail, timeThumbnailEmbedded)
     setTimeChanged(timeLabel, timeSlider)
 
     val pauseButton = createPauseButton()
@@ -109,7 +109,7 @@ object SfxToolBarCreator {
       }
     }
 
-  private def createTimeSlider()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
+  private def createTimeSlider(timeThumbnail: ImageView, timeThumbnailEmbedded: EmbeddedMediaPlayer)(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
     new Slider {
       style = "-fx-background-color:Transparent;-fx-background-radius:0"
 
@@ -118,6 +118,11 @@ object SfxToolBarCreator {
 
       onMouseClicked = _ =>
         embeddedMediaPlayer.controls().setPosition((value.get() / 100).toFloat)
+
+      onMouseMoved = mouseEvent => {
+        timeThumbnail.translateX = mouseEvent.getX.min(width.value - timeThumbnail.fitWidth.value)
+        timeThumbnailEmbedded.controls().setPosition((mouseEvent.getX / width.value).toFloat)
+      }
     }
 
   private def createVolumeSlider()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
@@ -144,5 +149,4 @@ object SfxToolBarCreator {
     new ImageView(
       new Image(getClass.getResourceAsStream(buttonImagePath))
     )
-
 }
