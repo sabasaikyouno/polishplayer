@@ -123,6 +123,12 @@ object SfxToolBarCreator {
         timeThumbnail.translateX = mouseEvent.getX.min(width.value - timeThumbnail.fitWidth.value)
         timeThumbnailEmbedded.controls().setPosition((mouseEvent.getX / width.value).toFloat)
       }
+
+      onMouseExited = _ =>
+        timeThumbnail.opacity = 0
+
+      onMouseEntered = _ =>
+        timeThumbnail.opacity = 1
     }
 
   private def createVolumeSlider()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =

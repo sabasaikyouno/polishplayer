@@ -41,15 +41,11 @@ object KeyMouseEvent {
           timeThumbnail.opacity = timeThumbnail.getOpacity.toInt ^ 1
       }
 
-    videoStack.onMouseExited = _ => {
+    videoStack.onMouseExited = _ =>
       toolBar.opacity = 0
-      timeThumbnail.opacity = 0
-    }
 
-    videoStack.onMouseEntered = _ => {
+    videoStack.onMouseEntered = _ =>
       toolBar.opacity = 1
-      timeThumbnail.opacity = 1
-    }
   }
 
 }
