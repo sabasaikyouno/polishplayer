@@ -17,6 +17,9 @@ object MediaPlayerEvent {
   def rewind()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
     embeddedMediaPlayer.controls().skipTime(-1000)
 
+  def skipRate(position: Float)(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
+    embeddedMediaPlayer.controls().setPosition(position)
+
   def upVolume()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
     embeddedMediaPlayer.audio().setVolume(embeddedMediaPlayer.audio().volume() + 5)
 

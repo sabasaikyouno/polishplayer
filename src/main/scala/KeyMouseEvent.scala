@@ -30,6 +30,7 @@ object KeyMouseEvent {
         case DOWN => downVolume()
         case M => muteVolume()
         case F11 => fullScreen()
+        case digit if digit.isDigitKey => skipRate(digit.getName.toFloat / 10)
       }
 
   private def setMouseEvent(toolBar: VBox, timeThumbnail: ImageView)(implicit videoStack: StackPane) = {
