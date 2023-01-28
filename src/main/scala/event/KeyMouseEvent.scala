@@ -1,12 +1,14 @@
+package event
+
+import event.MediaPlayerEvent._
+import javafx.scene.input.KeyCode._
+import javafx.scene.input.MouseButton._
 import scalafx.Includes._
 import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.scene.Scene
-import javafx.scene.input.KeyCode._
-import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
-import MediaPlayerEvent._
-import javafx.scene.input.MouseButton._
 import scalafx.scene.image.ImageView
 import scalafx.scene.layout.{StackPane, VBox}
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 
 object KeyMouseEvent {
 

@@ -1,6 +1,8 @@
+package creator
+
 import scalafx.Includes._
-import scalafx.application.Platform
 import scalafx.application.JFXApp3.PrimaryStage
+import scalafx.application.Platform
 import scalafx.geometry.Pos
 import scalafx.scene.control.Button
 import scalafx.scene.image.{Image, ImageView}

@@ -1,3 +1,5 @@
+package utils
+
 import scalafx.scene.image.{Image, ImageView}
 
 object ButtonImageView {

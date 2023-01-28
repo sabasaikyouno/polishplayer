@@ -1,3 +1,5 @@
+package creator
+
 import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.geometry.Insets
 import scalafx.scene.Scene

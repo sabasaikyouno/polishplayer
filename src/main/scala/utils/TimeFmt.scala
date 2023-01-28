@@ -1,3 +1,5 @@
+package utils
+
 object TimeFmt {
   // ミリ秒を時間に変換
   def timeFmt(time: Long): String = {

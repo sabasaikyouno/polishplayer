@@ -1,15 +1,15 @@
 import scalafx.application.JFXApp3
-import NodeCreator._
-import MediaPlayerCreator._
-import DragEvent.setDragEvent
-import KeyMouseEvent._
+import creator.NodeCreator._
+import creator.MediaPlayerCreator._
+import event.DragEvent.setDragEvent
+import event.KeyMouseEvent._
 import scalafx.Includes._
-import SfxTitleBarCreator.createTitleBar
-import SfxToolBarCreator.createToolBar
+import creator.SfxTitleBarCreator.createTitleBar
+import creator.SfxToolBarCreator.createToolBar
 import scalafx.scene.Scene
-import ClosedEvent.setClosedStageEvent
-import MediaPlayerEvent.setMediaPlayerReady
-import TimeThumbnailCreator._
+import event.ClosedEvent.setClosedStageEvent
+import event.MediaPlayerEvent.setMediaPlayerReady
+import creator.TimeThumbnailCreator._
 
 object Main extends JFXApp3 {
   override def start(): Unit = {

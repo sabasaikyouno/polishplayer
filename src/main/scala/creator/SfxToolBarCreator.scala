@@ -1,17 +1,19 @@
-import scalafx.scene.control.{Button, Label, Slider}
-import TimeFmt.timeFmt
-import scalafx.scene.image.{Image, ImageView}
-import scalafx.scene.paint.Color
-import ButtonImageView._
-import scalafx.scene.input.MouseEvent
+package creator
+
+import event.MediaPlayerEvent.{timeChanged, volumeChanged}
 import javafx.scene.input.KeyCode._
 import scalafx.Includes._
 import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.geometry.Pos
 import scalafx.scene.Scene
+import scalafx.scene.control.{Button, Label, Slider}
+import scalafx.scene.image.{Image, ImageView}
+import scalafx.scene.input.MouseEvent
 import scalafx.scene.layout.{HBox, VBox}
-import MediaPlayerEvent.{timeChanged, volumeChanged}
+import scalafx.scene.paint.Color
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
+import utils.ButtonImageView.{fullScreenButtonImageView, fullScreenReleaseButtonImageView, playButtonImageView, stopButtonImageView}
+import utils.TimeFmt.timeFmt
 
 object SfxToolBarCreator {
 

@@ -1,10 +1,12 @@
-import TimeFmt.timeFmt
+package event
+
 import javafx.application.Platform
 import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.scene.control.{Label, Slider}
 import uk.co.caprica.vlcj.player.base.{MediaPlayer, MediaPlayerEventAdapter}
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
-import ResumePlayList.getResumeVolume
+import utils.ResumePlayList.getResumeVolume
+import utils.TimeFmt.timeFmt
 
 object MediaPlayerEvent {
 

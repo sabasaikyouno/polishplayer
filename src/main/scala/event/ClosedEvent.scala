@@ -1,9 +1,11 @@
+package event
+
 import java.io.File
 
 import com.github.tototoshi.csv.CSVWriter
 import scalafx.application.JFXApp3.PrimaryStage
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
-import ResumePlayList.getResumePlayList
+import utils.ResumePlayList.getResumePlayList
 
 object ClosedEvent {
 

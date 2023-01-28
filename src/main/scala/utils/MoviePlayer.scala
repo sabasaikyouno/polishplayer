@@ -1,6 +1,8 @@
+package utils
+
+import event.ClosedEvent.closedEvent
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
-import ClosedEvent.closedEvent
-import ResumePlayList.getResumePosition
+import utils.ResumePlayList.getResumePosition
 
 object MoviePlayer {
 

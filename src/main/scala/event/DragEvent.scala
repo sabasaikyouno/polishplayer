@@ -1,8 +1,11 @@
+package event
+
+import scalafx.Includes._
 import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.input.TransferMode
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
-import scalafx.Includes._
+import utils.MoviePlayer
 
 object DragEvent {
 

@@ -1,3 +1,5 @@
+package creator
+
 import scalafx.scene.image.ImageView
 import uk.co.caprica.vlcj.factory.MediaPlayerFactory
 import uk.co.caprica.vlcj.javafx.videosurface.ImageViewVideoSurfaceFactory.videoSurfaceForImageView

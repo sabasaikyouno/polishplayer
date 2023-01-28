@@ -1,6 +1,8 @@
-import scalafx.scene.image.ImageView
-import MediaPlayerCreator.createMediaPlayer
+package creator
+
+import creator.MediaPlayerCreator.createMediaPlayer
 import scalafx.geometry.Pos
+import scalafx.scene.image.ImageView
 
 object TimeThumbnailCreator {
   def createTimeThumbnailImageView() =
