@@ -26,19 +26,19 @@ object KeyMouseEvent {
   private def setKeyEvent(scene: Scene)(implicit stage: PrimaryStage, embeddedMediaPlayer: EmbeddedMediaPlayer) =
     scene.onKeyPressed = keyEvent =>
       keyConf(keyEvent.getCode) match {
-        case "Pause" => pause()
-        case "FastForward" => fastForward()
-        case "Rewind" => rewind()
-        case "UpVolume" => upVolume()
-        case "DownVolume" => downVolume()
-        case "MuteVolume" => muteVolume()
-        case "FullScreen" => fullScreen()
-        case digit if digit.isDigitKey => skipRate(digit.getName.toFloat / 10)
+        case ("Pause", _) => pause()
+        case ("FastForward", _) => fastForward()
+        case ("Rewind", _) => rewind()
+        case ("UpVolume", _) => upVolume()
+        case ("DownVolume", _)=> downVolume()
+        case ("MuteVolume", _) => muteVolume()
+        case ("FullScreen", _) => fullScreen()
+        case (_, digit) if digit.isDigitKey => skipRate(digit.getName.toFloat / 10)
         case _ => ()
       }
 
-  private def keyConf(keyCode: KeyCode): String = {
-    keyCode.name
+  private def keyConf(keyCode: KeyCode): (String, KeyCode) = {
+    (keyCode.name, keyCode)
   }
 
   private def setMouseEvent(toolBar: VBox, timeThumbnail: ImageView)(implicit videoStack: StackPane) = {
