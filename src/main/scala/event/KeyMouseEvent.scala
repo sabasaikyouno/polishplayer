@@ -7,6 +7,7 @@ import scalafx.Includes._
 import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.scene.Scene
 import scalafx.scene.image.ImageView
+import scalafx.scene.input.KeyCode
 import scalafx.scene.layout.{StackPane, VBox}
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 
@@ -24,17 +25,21 @@ object KeyMouseEvent {
 
   private def setKeyEvent(scene: Scene)(implicit stage: PrimaryStage, embeddedMediaPlayer: EmbeddedMediaPlayer) =
     scene.onKeyPressed = keyEvent =>
-      keyEvent.getCode match {
-        case SPACE => pause()
-        case RIGHT => fastForward()
-        case LEFT => rewind()
-        case UP => upVolume()
-        case DOWN => downVolume()
-        case M => muteVolume()
-        case F11 => fullScreen()
+      keyConf(keyEvent.getCode) match {
+        case "Pause" => pause()
+        case "FastForward" => fastForward()
+        case "Rewind" => rewind()
+        case "UpVolume" => upVolume()
+        case "DownVolume" => downVolume()
+        case "MuteVolume" => muteVolume()
+        case "FullScreen" => fullScreen()
         case digit if digit.isDigitKey => skipRate(digit.getName.toFloat / 10)
         case _ => ()
       }
+
+  private def keyConf(keyCode: KeyCode): String = {
+    keyCode.name
+  }
 
   private def setMouseEvent(toolBar: VBox, timeThumbnail: ImageView)(implicit videoStack: StackPane) = {
     videoStack.onMouseReleased = mouseEvent =>
