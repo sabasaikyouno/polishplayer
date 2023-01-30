@@ -12,7 +12,7 @@ import scalafx.scene.input.MouseEvent
 import scalafx.scene.layout.{HBox, VBox}
 import scalafx.scene.paint.Color
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
-import utils.ButtonImageView.{fullScreenButtonImageView, fullScreenReleaseButtonImageView, playButtonImageView, stopButtonImageView}
+import utils.ButtonImageView.{backButton, forwardButton, fullScreenButton, fullScreenReleaseButton, playButton, stopButton}
 import utils.TimeFmt.timeFmt
 
 object SfxToolBarCreator {
@@ -41,9 +41,9 @@ object SfxToolBarCreator {
     scene.onKeyPressed = key =>
       if (key.getCode == SPACE)
         if (embeddedMediaPlayer.status().isPlaying)
-          pauseButton.graphic = playButtonImageView
+          pauseButton.graphic = playButton
         else
-          pauseButton.graphic = stopButtonImageView
+          pauseButton.graphic = stopButton
 
   private def createToolBarVBox(timeLabel: Label, timeSlider: Slider, pauseButton: Button, volumeSlider: Slider)(implicit stage: PrimaryStage, embeddedMediaPlayer: EmbeddedMediaPlayer) =
     new VBox {
@@ -73,40 +73,40 @@ object SfxToolBarCreator {
 
   private def createPauseButton()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
     new Button {
-      graphic = stopButtonImageView
+      graphic = stopButton
       style = "-fx-background-color:Transparent;-fx-background-radius:0"
 
       onMouseClicked = _ => {
         embeddedMediaPlayer.controls().pause()
         if (embeddedMediaPlayer.status().isPlaying)
-          graphic = playButtonImageView
+          graphic = playButton
         else
-          graphic = stopButtonImageView
+          graphic = stopButton
       }
     }
 
   private def createForWordButton()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
-    createButtonHasEvent("forward.png") { _ =>
+    createButtonHasEvent(forwardButton) { _ =>
       embeddedMediaPlayer.controls().skipTime(10000)
     }
 
   private def createBackButton()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
-    createButtonHasEvent("back.png") { _ =>
+    createButtonHasEvent(backButton) { _ =>
       embeddedMediaPlayer.controls().skipTime(-10000)
     }
 
   private def createFullScreenButton()(implicit stage: PrimaryStage) =
     new Button {
-      graphic = fullScreenButtonImageView
+      graphic = fullScreenButton
       style = "-fx-background-color:Transparent;-fx-background-radius:0"
 
       onMouseClicked = _ => {
         if (stage.isFullScreen) {
           stage.fullScreen = false
-          graphic = fullScreenButtonImageView
+          graphic = fullScreenButton
         } else {
           stage.fullScreen = true
-          graphic = fullScreenReleaseButtonImageView
+          graphic = fullScreenReleaseButton
         }
       }
     }
@@ -146,15 +146,10 @@ object SfxToolBarCreator {
         embeddedMediaPlayer.audio().setVolume(value.get().toInt)
     }
 
-  private def createButtonHasEvent(buttonImagePath: String)(onMouseClickedEvent: MouseEvent => Unit) =
+  private def createButtonHasEvent(buttonImageView: ImageView)(onMouseClickedEvent: MouseEvent => Unit) =
     new Button {
-      graphic = createImageView(buttonImagePath)
+      graphic = buttonImageView
       style = "-fx-background-color:Transparent;-fx-background-radius:0"
       onMouseClicked = onMouseClickedEvent
     }
-
-  private def createImageView(buttonImagePath: String) =
-    new ImageView(
-      new Image(getClass.getResourceAsStream(buttonImagePath))
-    )
 }

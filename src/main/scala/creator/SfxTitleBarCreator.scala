@@ -11,6 +11,7 @@ import scalafx.scene.layout.{HBox, StackPane}
 import scalafx.scene.paint.Color
 import scalafx.scene.shape.Rectangle
 import scalafx.stage.Screen
+import utils.ButtonImageView.{exitButton, iconifiedButton, maximizedButton, minimizedButton}
 
 object SfxTitleBarCreator {
 
@@ -49,13 +50,13 @@ object SfxTitleBarCreator {
 
   // 終了ボタン
   private def createExitButton() =
-    createButtonHasEvent("exit.png") { _ =>
+    createButtonHasEvent(exitButton) { _ =>
       Platform.exit()
     }
 
   // アイコン化(最小化？言い方がよくわからない）
   private def createIconifiedButton()(implicit stage: PrimaryStage, videoStack: StackPane) =
-    createButtonHasEvent("iconified.png") { _ =>
+    createButtonHasEvent(iconifiedButton) { _ =>
       stage.setIconified(true)
       videoStack.requestFocus()
     }
@@ -63,8 +64,8 @@ object SfxTitleBarCreator {
   // ウィンドウの最大化、最大化を元に戻す
   private def createMaximizedButton()(implicit stage: PrimaryStage, videoStack: StackPane) = {
     val primaryScreenBounds = Screen.primary.visualBounds
-    val maximizedButtonImage = createImageView("maximized.png")
-    val minimizedButtonImage = createImageView("minimized.png")
+    val maximizedButtonImage = maximizedButton
+    val minimizedButtonImage = minimizedButton
 
     new Button {
       graphic = maximizedButtonImage
@@ -87,15 +88,10 @@ object SfxTitleBarCreator {
     }
   }
 
-  private def createButtonHasEvent(buttonImagePath: String)(onMouseClickedEvent: MouseEvent => Unit) =
+  private def createButtonHasEvent(buttonImageView: ImageView)(onMouseClickedEvent: MouseEvent => Unit) =
     new Button {
-      graphic = createImageView(buttonImagePath)
+      graphic = buttonImageView
       style = "-fx-background-color:Black;-fx-background-radius:0"
       onMouseClicked = onMouseClickedEvent
     }
-
-  private def createImageView(buttonImagePath: String) =
-    new ImageView(
-      new Image(getClass.getResourceAsStream(buttonImagePath))
-    )
 }

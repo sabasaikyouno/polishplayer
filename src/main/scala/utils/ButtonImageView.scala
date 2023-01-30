@@ -4,10 +4,16 @@ import scalafx.scene.image.{Image, ImageView}
 
 object ButtonImageView {
 
-  val playButtonImageView: ImageView = createImageView("play.png")
-  val stopButtonImageView: ImageView = createImageView("stop.png")
-  val fullScreenReleaseButtonImageView: ImageView = createImageView("fullscreenRelease.png")
-  val fullScreenButtonImageView: ImageView = createImageView("fullscreen.png")
+  val playButton: ImageView = createImageView("/play.png")
+  val stopButton: ImageView = createImageView("/stop.png")
+  val fullScreenReleaseButton: ImageView = createImageView("/fullscreenRelease.png")
+  val fullScreenButton: ImageView = createImageView("/fullscreen.png")
+  val backButton: ImageView = createImageView("/back.png")
+  val forwardButton: ImageView = createImageView("/forward.png")
+  val iconifiedButton: ImageView = createImageView("/iconified.png")
+  val exitButton: ImageView = createImageView("/exit.png")
+  val maximizedButton: ImageView = createImageView("/maximized.png")
+  val minimizedButton: ImageView = createImageView("/minimized.png")
 
   private def createImageView(buttonImagePath: String) =
     new ImageView(
