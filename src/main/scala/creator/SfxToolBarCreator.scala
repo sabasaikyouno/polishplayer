@@ -7,12 +7,12 @@ import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.geometry.Pos
 import scalafx.scene.Scene
 import scalafx.scene.control.{Button, Label, Slider}
-import scalafx.scene.image.{Image, ImageView}
+import scalafx.scene.image.ImageView
 import scalafx.scene.input.MouseEvent
 import scalafx.scene.layout.{HBox, VBox}
 import scalafx.scene.paint.Color
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
-import utils.ButtonImageView.{backButton, forwardButton, fullScreenButton, fullScreenReleaseButton, playButton, stopButton}
+import utils.ButtonImageView._
 import utils.TimeFmt.timeFmt
 
 object SfxToolBarCreator {

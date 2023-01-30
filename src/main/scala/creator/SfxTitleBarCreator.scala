@@ -5,7 +5,7 @@ import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.application.Platform
 import scalafx.geometry.Pos
 import scalafx.scene.control.Button
-import scalafx.scene.image.{Image, ImageView}
+import scalafx.scene.image.ImageView
 import scalafx.scene.input.MouseEvent
 import scalafx.scene.layout.{HBox, StackPane}
 import scalafx.scene.paint.Color
