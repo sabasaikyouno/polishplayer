@@ -1,6 +1,6 @@
 package creator
 
-import event.MediaPlayerEvent.{timeChanged, volumeChanged}
+import event.MediaPlayerEvent.{paused, timeChanged, volumeChanged}
 import javafx.scene.input.KeyCode._
 import scalafx.Includes._
 import scalafx.application.JFXApp3.PrimaryStage
@@ -23,7 +23,7 @@ object SfxToolBarCreator {
     setTimeChanged(timeLabel, timeSlider)
 
     val pauseButton = createPauseButton()
-    setSceneEvent(pauseButton)
+    setPausedEvent(pauseButton)
 
     val volumeSlider = createVolumeSlider()
     setVolumeChanged(volumeSlider)
@@ -37,13 +37,8 @@ object SfxToolBarCreator {
   private def setVolumeChanged(volumeSlider: Slider)(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
     volumeChanged(volumeSlider)
 
-  private def setSceneEvent(pauseButton: Button)(implicit scene: Scene, embeddedMediaPlayer: EmbeddedMediaPlayer) =
-    scene.onKeyPressed = key =>
-      if (key.getCode == SPACE)
-        if (embeddedMediaPlayer.status().isPlaying)
-          pauseButton.graphic = playButton
-        else
-          pauseButton.graphic = stopButton
+  private def setPausedEvent(pauseButton: Button)(implicit scene: Scene, embeddedMediaPlayer: EmbeddedMediaPlayer) =
+    paused(pauseButton)
 
   private def createToolBarVBox(timeLabel: Label, timeSlider: Slider, pauseButton: Button, volumeSlider: Slider)(implicit stage: PrimaryStage, embeddedMediaPlayer: EmbeddedMediaPlayer) =
     new VBox {
@@ -76,13 +71,7 @@ object SfxToolBarCreator {
       graphic = stopButton
       style = "-fx-background-color:Transparent;-fx-background-radius:0"
 
-      onMouseClicked = _ => {
-        embeddedMediaPlayer.controls().pause()
-        if (embeddedMediaPlayer.status().isPlaying)
-          graphic = playButton
-        else
-          graphic = stopButton
-      }
+      onMouseClicked = _ => embeddedMediaPlayer.controls().pause()
     }
 
   private def createForWordButton()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =

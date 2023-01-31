@@ -2,9 +2,10 @@ package event
 
 import javafx.application.Platform
 import scalafx.application.JFXApp3.PrimaryStage
-import scalafx.scene.control.{Label, Slider}
+import scalafx.scene.control.{Button, Label, Slider}
 import uk.co.caprica.vlcj.player.base.{MediaPlayer, MediaPlayerEventAdapter}
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
+import utils.ButtonImageView.{playButton, stopButton}
 import utils.ResumePlayList.getResumeVolume
 import utils.TimeFmt.timeFmt
 
@@ -55,6 +56,21 @@ object MediaPlayerEvent {
     embeddedMediaPlayer.events().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
       override def mediaPlayerReady(mediaPlayer: MediaPlayer): Unit = {
         embeddedMediaPlayer.audio().setVolume(getResumeVolume())
+      }
+    })
+
+  def paused(pauseButton: Button)(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
+    embeddedMediaPlayer.events().addMediaPlayerEventListener(new MediaPlayerEventAdapter() {
+      override def paused(mediaPlayer: MediaPlayer): Unit = {
+        Platform.runLater(() =>
+          pauseButton.graphic = playButton
+        )
+      }
+
+      override def playing(mediaPlayer: MediaPlayer): Unit = {
+        Platform.runLater(() =>
+          pauseButton.graphic = stopButton
+        )
       }
     })
 }
