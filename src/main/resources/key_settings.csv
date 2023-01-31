@@ -1,0 +1,7 @@
+Space,Pause
+Right,FastForward
+Left,Rewind
+Up,UpVolume
+Down,DownVolume
+M,MuteVolume
+F11,FullScreen
