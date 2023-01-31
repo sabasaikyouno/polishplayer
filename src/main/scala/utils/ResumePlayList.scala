@@ -7,7 +7,7 @@ import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 
 object ResumePlayList {
   def getResumePlayList() = {
-    val resumePlayFile = new File("src\\main\\resources\\resume_play.csv")
+    val resumePlayFile = new File("src\\main\\resources\\resumePlay.csv")
     val reader = CSVReader.open(resumePlayFile)
 
     try

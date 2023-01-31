@@ -11,7 +11,7 @@ object KeySettings {
     (findKeySettings(keyCode).fold("")(_.apply(1)), keyCode)
 
   private def getKeySettings = {
-    val keySettingsFile = new File("src\\main\\resources\\key_settings.csv")
+    val keySettingsFile = new File("src\\main\\resources\\keySettings.csv")
     val reader = CSVReader.open(keySettingsFile)
 
     try

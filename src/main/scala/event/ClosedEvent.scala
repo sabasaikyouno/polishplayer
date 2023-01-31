@@ -25,7 +25,7 @@ object ClosedEvent {
   }
 
   private def resumePlayWrite(mrl: String, position: Float, volume: Int) = {
-    val resumePlayFile = new File("src\\main\\resources\\resume_play.csv")
+    val resumePlayFile = new File("src\\main\\resources\\resumePlay.csv")
     val resumePlayList = getResumePlayList()
     val writer = CSVWriter.open(resumePlayFile)
 
