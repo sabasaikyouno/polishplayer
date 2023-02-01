@@ -1,7 +1,6 @@
 package creator
 
 import event.MediaPlayerEvent.{paused, timeChanged, volumeChanged}
-import javafx.scene.input.KeyCode._
 import scalafx.Includes._
 import scalafx.application.JFXApp3.PrimaryStage
 import scalafx.geometry.Pos
@@ -15,7 +14,7 @@ import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 import utils.ButtonImageView._
 import utils.TimeFmt.timeFmt
 
-object SfxToolBarCreator {
+object ToolBarCreator {
 
   def createToolBar(timeThumbnail: ImageView, timeThumbnailEmbedded: EmbeddedMediaPlayer)(implicit stage: PrimaryStage, scene: Scene, embeddedMediaPlayer: EmbeddedMediaPlayer) = {
     val timeLabel = createTimeLabel()

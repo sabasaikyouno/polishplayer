@@ -13,7 +13,7 @@ import scalafx.scene.shape.Rectangle
 import scalafx.stage.Screen
 import utils.ButtonImageView.{exitButton, iconifiedButton, maximizedButton, minimizedButton}
 
-object SfxTitleBarCreator {
+object TitleBarCreator {
 
   def createTitleBar()(implicit stage: PrimaryStage, videoStack: StackPane) =
     new StackPane {

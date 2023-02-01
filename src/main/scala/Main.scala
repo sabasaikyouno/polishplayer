@@ -4,8 +4,8 @@ import creator.MediaPlayerCreator._
 import event.DragEvent.setDragEvent
 import event.KeyMouseEvent._
 import scalafx.Includes._
-import creator.SfxTitleBarCreator.createTitleBar
-import creator.SfxToolBarCreator.createToolBar
+import creator.TitleBarCreator.createTitleBar
+import creator.ToolBarCreator.createToolBar
 import scalafx.scene.Scene
 import event.ClosedEvent.setClosedStageEvent
 import event.MediaPlayerEvent.setMediaPlayerReady
