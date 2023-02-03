@@ -20,7 +20,6 @@ object Main extends JFXApp3 {
     implicit val embeddedMediaPlayer = createMediaPlayer(videoImageView)
     implicit val sceneImp: Scene = stage.getScene
 
-
     val timeThumbnail = createTimeThumbnailImageView()
     val timeThumbnailEmbedded = createTimeThumbnailEmbedded(timeThumbnail)
 

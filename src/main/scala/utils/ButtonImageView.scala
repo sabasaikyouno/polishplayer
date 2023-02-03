@@ -14,6 +14,7 @@ object ButtonImageView {
   val exitButton: ImageView = createImageView("/exit.png")
   val maximizedButton: ImageView = createImageView("/maximized.png")
   val minimizedButton: ImageView = createImageView("/minimized.png")
+  val settingsButton: ImageView = createImageView("/settings.png")
 
   private def createImageView(buttonImagePath: String) =
     new ImageView(

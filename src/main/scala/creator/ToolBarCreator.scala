@@ -1,5 +1,6 @@
 package creator
 
+import creator.SettingsStageCreator.createSettingsStage
 import event.MediaPlayerEvent.{paused, timeChanged, volumeChanged}
 import scalafx.Includes._
 import scalafx.application.JFXApp3.PrimaryStage
@@ -10,6 +11,7 @@ import scalafx.scene.image.ImageView
 import scalafx.scene.input.MouseEvent
 import scalafx.scene.layout.{HBox, VBox}
 import scalafx.scene.paint.Color
+import scalafx.stage.Stage
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 import utils.ButtonImageView._
 import utils.TimeFmt.timeFmt
@@ -54,7 +56,8 @@ object ToolBarCreator {
         createBackButton(),
         pauseButton,
         createForWordButton(),
-        createFullScreenButton()
+        createFullScreenButton(),
+        createSettingsButton()
       )
     }
 
@@ -97,6 +100,11 @@ object ToolBarCreator {
           graphic = fullScreenReleaseButton
         }
       }
+    }
+
+  private def createSettingsButton(settingsStage: Stage = createSettingsStage()) =
+    createButtonHasEvent(settingsButton) { _ =>
+      settingsStage.show()
     }
 
   private def createTimeSlider(timeThumbnail: ImageView, timeThumbnailEmbedded: EmbeddedMediaPlayer)(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
