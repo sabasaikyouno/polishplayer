@@ -8,7 +8,7 @@ import scalafx.scene.Scene
 import scalafx.scene.image.ImageView
 import scalafx.scene.layout.{StackPane, VBox}
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
-import utils.KeySettings.keySetting
+import utils.KeySettings.findKeySetting
 
 object KeyMouseEvent {
 
@@ -24,7 +24,7 @@ object KeyMouseEvent {
 
   private def setKeyEvent(scene: Scene)(implicit stage: PrimaryStage, embeddedMediaPlayer: EmbeddedMediaPlayer) =
     scene.onKeyPressed = keyEvent =>
-      keySetting(keyEvent.getCode) match {
+      findKeySetting(keyEvent.getCode) match {
         case ("Pause", _) => pause()
         case ("FastForward", _) => fastForward()
         case ("Rewind", _) => rewind()

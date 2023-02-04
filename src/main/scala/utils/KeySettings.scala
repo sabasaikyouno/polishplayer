@@ -7,8 +7,8 @@ import com.github.tototoshi.csv.CSVReader
 
 object KeySettings {
 
-  def keySetting(keyCode: KeyCode): (String, KeyCode) =
-    (findKeySettings(keyCode).fold("")(_.apply(1)), keyCode)
+  def findKeySetting(keyCode: KeyCode): (String, KeyCode) =
+    (helpFindKeySettings(keyCode).fold("")(_.apply(1)), keyCode)
 
   private def getKeySettings = {
     val keySettingsFile = new File("src\\main\\resources\\keySettings.csv")
@@ -20,6 +20,6 @@ object KeySettings {
       reader.close()
   }
 
-  private def findKeySettings(keyCode: KeyCode) =
+  private def helpFindKeySettings(keyCode: KeyCode) =
     getKeySettings.find(_.head == keyCode.name)
 }
