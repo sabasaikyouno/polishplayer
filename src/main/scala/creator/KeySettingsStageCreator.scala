@@ -2,7 +2,7 @@ package creator
 
 import scalafx.stage.{Modality, Stage}
 
-object SettingsStageCreator {
+object KeySettingsStageCreator {
   def createSettingsStage() = {
     new Stage {
       title = "settings"

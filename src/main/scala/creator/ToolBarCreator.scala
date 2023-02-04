@@ -1,6 +1,6 @@
 package creator
 
-import creator.SettingsStageCreator.createSettingsStage
+import creator.KeySettingsStageCreator.createSettingsStage
 import event.MediaPlayerEvent.{paused, timeChanged, volumeChanged}
 import scalafx.Includes._
 import scalafx.application.JFXApp3.PrimaryStage
