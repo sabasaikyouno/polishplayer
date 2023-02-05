@@ -10,6 +10,13 @@ object KeySettings {
   def findKeySetting(keyCode: KeyCode): (String, KeyCode) =
     (helpFindKeySettings(keyCode).fold("")(_.apply(1)), keyCode)
 
+  def settingsMap =
+    getKeySettings
+      .groupBy(_(1))
+      .mapValues(
+        _.map(_.head)
+      )
+
   private def getKeySettings = {
     val keySettingsFile = new File("src\\main\\resources\\keySettings.csv")
     val reader = CSVReader.open(keySettingsFile)
