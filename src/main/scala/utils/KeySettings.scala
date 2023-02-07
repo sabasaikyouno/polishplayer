@@ -27,11 +27,10 @@ object KeySettings {
       writer.close()
   }
 
-  private def settingsMapToList(settingsMap: Map[String, List[String]]) = {
+  private def settingsMapToList(settingsMap: Map[String, List[String]]) =
     settingsMap.map { case (event, keyList) =>
       keyList.flatMap(List(_, event))
     }.toList
-  }
 
   private def getKeySettings = {
     val keySettingsFile = new File("src\\main\\resources\\keySettings.csv")
