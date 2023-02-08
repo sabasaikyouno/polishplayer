@@ -1,7 +1,7 @@
 package creator
 
 import scalafx.scene.Scene
-import scalafx.scene.control.TextField
+import scalafx.scene.control.{Button, TextField}
 import scalafx.scene.layout.{HBox, VBox}
 import scalafx.scene.text.Text
 import scalafx.stage.{Modality, Stage}
@@ -12,21 +12,35 @@ object KeySettingsStageCreator {
     new Stage {
       title = "settings"
       initModality(Modality.ApplicationModal)
-      scene = new Scene(createSettingsPane())
+      scene = new Scene()
     }
   }
 
-  def createSettingsPane() =
-    new VBox(keySettingsHBoxList: _*)
+  def createSettingsVBox(rowNodeList: List[HBox]) =
+    new VBox(rowNodeList: _*)
 
-  def keySettingsHBoxList =
-    keySettingsMap.map(makeRowKeySetting).toList
-
-  def makeRowKeySetting(rowKeySetting: (String, List[String])) =
+  def makeRowNode(row: (Text, TextField)) =
     new HBox(
-      new Text(rowKeySetting._1),
+      row._1,
+      row._2
+    )
+
+  def makeRow(keySetting: (String, List[String])) =
+    (
+      new Text(keySetting._1),
       new TextField {
-        text = rowKeySetting._2.mkString(" ")
+        text = keySetting._2.mkString(" ")
       }
     )
+
+  def saveButton(rowList: Map[Text, TextField]) = {
+    new Button()
+  }
+
+  def m: Unit = {
+    val keySettings = keySettingsMap
+    val rowList = keySettings.map(makeRow)
+    val hboxList = rowList.map(makeRowNode).toList
+    val vbox = createSettingsVBox(hboxList)
+  }
 }
