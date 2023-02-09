@@ -9,23 +9,28 @@ import utils.KeySettings.keySettingsMap
 
 object KeySettingsStageCreator {
   def createSettingsStage() = {
+    val keySettingNode = keySettingsMap.map(makeKeySettingNode)
+
     new Stage {
       title = "settings"
       initModality(Modality.ApplicationModal)
-      scene = new Scene()
+      scene = new Scene(createKeySettingsVBox(keySettingNode))
     }
   }
 
-  def createSettingsVBox(rowNodeList: List[HBox]) =
-    new VBox(rowNodeList: _*)
+  def createKeySettingsVBox(keySettingNodeMap: Map[Text, TextField]) = {
+    val hboxList = keySettingNodeMap.map(makeRowHBox).toList :+ saveButton(keySettingNodeMap)
 
-  def makeRowNode(row: (Text, TextField)) =
+    new VBox(hboxList: _*)
+  }
+
+  def makeRowHBox(row: (Text, TextField)) =
     new HBox(
       row._1,
       row._2
     )
 
-  def makeRow(keySetting: (String, List[String])) =
+  def makeKeySettingNode(keySetting: (String, List[String])) =
     (
       new Text(keySetting._1),
       new TextField {
@@ -33,14 +38,11 @@ object KeySettingsStageCreator {
       }
     )
 
-  def saveButton(rowList: Map[Text, TextField]) = {
-    new Button()
-  }
-
-  def m: Unit = {
-    val keySettings = keySettingsMap
-    val rowList = keySettings.map(makeRow)
-    val hboxList = rowList.map(makeRowNode).toList
-    val vbox = createSettingsVBox(hboxList)
+  def saveButton(keySettingNodeMap: Map[Text, TextField]) = {
+    new Button {
+      text = "save"
+      onMouseClicked = _ =>
+        println(keySettingNodeMap.head._2.text)
+    }
   }
 }
