@@ -9,16 +9,15 @@ import utils.KeySettings.keySettingsMap
 
 object KeySettingsStageCreator {
   def createSettingsStage() = {
-    val keySettingNode = keySettingsMap.map(makeKeySettingNode)
-
     new Stage {
       title = "settings"
       initModality(Modality.ApplicationModal)
-      scene = new Scene(createKeySettingsVBox(keySettingNode))
+      scene = new Scene(createKeySettingsVBox)
     }
   }
 
-  def createKeySettingsVBox(keySettingNodeMap: Map[Text, TextField]) = {
+  def createKeySettingsVBox = {
+    val keySettingNodeMap = keySettingsMap.map(makeKeySettingNode)
     val hboxList = keySettingNodeMap.map(makeRowHBox).toList :+ saveButton(keySettingNodeMap)
 
     new VBox(hboxList: _*)
