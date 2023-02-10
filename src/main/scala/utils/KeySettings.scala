@@ -4,6 +4,8 @@ import java.io.File
 
 import scalafx.scene.input.KeyCode
 import com.github.tototoshi.csv.{CSVReader, CSVWriter}
+import scalafx.scene.control.TextField
+import scalafx.scene.text.Text
 
 object KeySettings {
 
@@ -26,6 +28,11 @@ object KeySettings {
     finally
       writer.close()
   }
+
+  def keySettingNodeToRaw(keySettingsNode: (Text, TextField)) = (
+    keySettingsNode._1.text.value,
+    keySettingsNode._2.text.value.split(" ").toList
+  )
 
   private def settingsMapToList(settingsMap: Map[String, List[String]]) =
     settingsMap.map { case (event, keyList) =>
