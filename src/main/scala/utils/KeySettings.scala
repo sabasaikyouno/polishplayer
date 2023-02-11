@@ -34,9 +34,9 @@ object KeySettings {
     keySettingsNode._2.text.value.split(" ").toList
   )
 
-  private def settingsMapToList(settingsMap: Map[String, List[String]]) =
-    settingsMap.map { case (event, keyList) =>
-      keyList.flatMap(List(_, event))
+  def settingsMapToList(settingsMap: Map[String, List[String]]) =
+    settingsMap.flatMap { case (event, keyList) =>
+      keyList.map(List(_, event))
     }.toList
 
   private def getKeySettings = {
