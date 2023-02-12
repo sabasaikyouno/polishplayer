@@ -7,24 +7,26 @@ import com.github.tototoshi.csv.{CSVReader, CSVWriter}
 import scalafx.scene.control.TextField
 import scalafx.scene.text.Text
 
+import scala.math.Ordering.Implicits.seqDerivedOrdering
+
 object KeySettings {
 
   def findKeySetting(keyCode: KeyCode): (String, KeyCode) =
     (helpFindKeySettings(keyCode).fold("")(_.apply(1)), keyCode)
 
-  def keySettingsMap =
+  def keySettingsList =
     getKeySettings
       .groupBy(_(1))
       .mapValues(
         _.map(_.head)
-      )
+      ).toList.sorted
 
-  def keySettingsWrite(settingsMap: Map[String, List[String]]) = {
+  def keySettingsWrite(settingsList: List[(String, List[String])]) = {
     val keySettingsFile = new File("src\\main\\resources\\keySettings.csv")
     val writer = CSVWriter.open(keySettingsFile)
 
     try
-      writer.writeAll(settingsMapToList(settingsMap))
+      writer.writeAll(settingsListPair(settingsList))
     finally
       writer.close()
   }
@@ -34,10 +36,10 @@ object KeySettings {
     keySettingsNode._2.text.value.split(" ").toList
   )
 
-  def settingsMapToList(settingsMap: Map[String, List[String]]) =
-    settingsMap.flatMap { case (event, keyList) =>
+  def settingsListPair(settingsList: List[(String, List[String])]) =
+    settingsList.flatMap { case (event, keyList) =>
       keyList.map(List(_, event))
-    }.toList
+    }
 
   private def getKeySettings = {
     val keySettingsFile = new File("src\\main\\resources\\keySettings.csv")

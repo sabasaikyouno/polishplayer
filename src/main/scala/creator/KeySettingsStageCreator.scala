@@ -5,7 +5,7 @@ import scalafx.scene.control.{Button, TextField}
 import scalafx.scene.layout.{HBox, VBox}
 import scalafx.scene.text.Text
 import scalafx.stage.{Modality, Stage}
-import utils.KeySettings.{keySettingNodeToRaw, keySettingsMap, keySettingsWrite}
+import utils.KeySettings.{keySettingNodeToRaw, keySettingsList, keySettingsWrite}
 
 object KeySettingsStageCreator {
   def createSettingsStage() = {
@@ -17,8 +17,8 @@ object KeySettingsStageCreator {
   }
 
   def createKeySettingsVBox = {
-    val keySettingNodeMap = keySettingsMap.map(makeKeySettingNode)
-    val hboxList = keySettingNodeMap.map(makeRowHBox).toList :+ saveButton(keySettingNodeMap)
+    val keySettingNodeMap = keySettingsList.map(makeKeySettingNode)
+    val hboxList = keySettingNodeMap.map(makeRowHBox) :+ saveButton(keySettingNodeMap)
 
     new VBox(hboxList: _*)
   }
@@ -37,7 +37,7 @@ object KeySettingsStageCreator {
       }
     )
 
-  def saveButton(keySettingsNodeMap: Map[Text, TextField]) = {
+  def saveButton(keySettingsNodeMap: List[(Text, TextField)]) = {
     new Button {
       text = "save"
       onMouseClicked = _ => keySettingsWrite(keySettingsNodeMap.map(keySettingNodeToRaw))
