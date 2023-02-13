@@ -34,6 +34,7 @@ object KeySettingsStageCreator {
       new Text(keySetting._1),
       new TextField {
         text = keySetting._2.mkString(" ")
+        onKeyReleased = key => text = key.getCode.getName
       }
     )
 
