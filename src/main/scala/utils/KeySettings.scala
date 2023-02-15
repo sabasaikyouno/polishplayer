@@ -41,6 +41,13 @@ object KeySettings {
       keyList.map(List(_, event))
     }
 
+  def removeOrAppendKeyText(text: String, key: String) =
+    if (text.contains(key)) {
+      text.split(" ").diff(List(key)).mkString(" ")
+    } else {
+      s"$text $key"
+    }
+
   private def getKeySettings = {
     val keySettingsFile = new File("src\\main\\resources\\keySettings.csv")
     val reader = CSVReader.open(keySettingsFile)

@@ -5,7 +5,7 @@ import scalafx.scene.control.{Button, TextField}
 import scalafx.scene.layout.{HBox, VBox}
 import scalafx.scene.text.Text
 import scalafx.stage.{Modality, Stage}
-import utils.KeySettings.{keySettingNodeToRaw, keySettingsList, keySettingsWrite}
+import utils.KeySettings.{keySettingNodeToRaw, keySettingsList, keySettingsWrite, removeOrAppendKeyText}
 
 object KeySettingsStageCreator {
   def createSettingsStage() = {
@@ -34,7 +34,7 @@ object KeySettingsStageCreator {
       new Text(keySetting._1),
       new TextField {
         text = keySetting._2.mkString(" ")
-        onKeyReleased = key => text = s"${text.value} ${key.getCode.getName}"
+        onKeyReleased = key => text = removeOrAppendKeyText(text.value, key.getCode.getName)
         editable = false
       }
     )
