@@ -15,10 +15,10 @@ object MediaPlayerEvent {
     embeddedMediaPlayer.controls().pause()
 
   def fastForward()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
-    embeddedMediaPlayer.controls().skipTime(1000)
+    embeddedMediaPlayer.controls().skipTime(3000)
 
   def rewind()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
-    embeddedMediaPlayer.controls().skipTime(-1000)
+    embeddedMediaPlayer.controls().skipTime(-3000)
 
   def skipRate(position: Float)(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
     embeddedMediaPlayer.controls().setPosition(position)
