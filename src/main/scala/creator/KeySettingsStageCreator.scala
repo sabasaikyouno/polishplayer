@@ -8,9 +8,9 @@ import scalafx.stage.{Modality, Stage}
 import utils.KeySettings.{keySettingNodeToRaw, keySettingsList, keySettingsWrite, removeOrAppendKeyText}
 
 object KeySettingsStageCreator {
-  def createSettingsStage() = {
+  def createKeySettingsStage() = {
     new Stage {
-      title = "settings"
+      title = "key settings"
       initModality(Modality.ApplicationModal)
       scene = new Scene(createKeySettingsVBox)
     }
@@ -24,10 +24,7 @@ object KeySettingsStageCreator {
   }
 
   def makeRowHBox(row: (Text, TextField)) =
-    new HBox(
-      row._1,
-      row._2
-    )
+    new HBox(row._1, row._2)
 
   def makeKeySettingNode(keySetting: (String, List[String])) =
     (

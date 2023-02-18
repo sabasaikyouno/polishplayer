@@ -12,7 +12,7 @@ import scala.math.Ordering.Implicits.seqDerivedOrdering
 object KeySettings {
 
   def findKeySetting(keyCode: KeyCode): (String, KeyCode) =
-    (helpFindKeySettings(keyCode).fold("")(_.apply(1)), keyCode)
+    (findKeySettings(keyCode).fold("")(_.apply(1)), keyCode)
 
   def keySettingsList =
     getKeySettings
@@ -58,6 +58,6 @@ object KeySettings {
       reader.close()
   }
 
-  private def helpFindKeySettings(keyCode: KeyCode) =
+  private def findKeySettings(keyCode: KeyCode) =
     getKeySettings.find(_.head == keyCode.name)
 }

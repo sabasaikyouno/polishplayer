@@ -1,6 +1,6 @@
 package creator
 
-import creator.KeySettingsStageCreator.createSettingsStage
+import creator.KeySettingsStageCreator.createKeySettingsStage
 import event.MediaPlayerEvent.{paused, timeChanged, volumeChanged}
 import scalafx.Includes._
 import scalafx.application.JFXApp3.PrimaryStage
@@ -102,7 +102,7 @@ object ToolBarCreator {
       }
     }
 
-  private def createSettingsButton(settingsStage: Stage = createSettingsStage()) =
+  private def createSettingsButton(settingsStage: Stage = createKeySettingsStage()) =
     createButtonHasEvent(settingsButton) { _ =>
       settingsStage.show()
     }
