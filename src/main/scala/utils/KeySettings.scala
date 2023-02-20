@@ -10,7 +10,7 @@ import scala.math.Ordering.Implicits.seqDerivedOrdering
 object KeySettings {
 
   def findKeySetting(keyCode: KeyCode): (String, KeyCode) =
-    (findKeySettings(keyCode).fold("")(_.apply(1)), keyCode)
+    (helpFindKeySettings(keyCode).fold("")(_.apply(1)), keyCode)
 
   def keySettingsList =
     getKeySettings
@@ -42,6 +42,6 @@ object KeySettings {
   private def getKeySettings =
     csvReadAll("src\\main\\resources\\keySettings.csv")
 
-  private def findKeySettings(keyCode: KeyCode) =
+  private def helpFindKeySettings(keyCode: KeyCode) =
     getKeySettings.find(_.head == keyCode.name)
 }

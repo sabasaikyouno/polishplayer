@@ -5,7 +5,7 @@ import scalafx.scene.control.{Button, TextField}
 import scalafx.scene.layout.{HBox, VBox}
 import scalafx.scene.text.Text
 import scalafx.stage.{Modality, Stage}
-import utils.MediaPlayerEventSettings.mediaPlayerEventSettingsList
+import utils.MediaPlayerEventSettings.{mediaPlayerEventSettingNodeToRaw, mediaPlayerEventSettingsList, mediaPlayerEventSettingsWrite}
 
 object MediaPlayerEventSettingsCreator {
   def createMediaPlayerEventSettingsStage() = {
@@ -36,6 +36,7 @@ object MediaPlayerEventSettingsCreator {
   def saveButton(mediaPlayerEventSettingsNodeList: List[(Text, TextField)]) = {
     new Button {
       text = "save"
+      onMouseClicked = _ => mediaPlayerEventSettingsWrite(mediaPlayerEventSettingsNodeList.map(mediaPlayerEventSettingNodeToRaw))
     }
   }
 }
