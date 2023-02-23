@@ -6,6 +6,7 @@ import scalafx.scene.control.{Button, Label, Slider}
 import uk.co.caprica.vlcj.player.base.{MediaPlayer, MediaPlayerEventAdapter}
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
 import utils.ButtonImageView.{playButton, stopButton}
+import utils.MediaPlayerEventSettings.findMediaPlayerEventSetting
 import utils.ResumePlayList.getResumeVolume
 import utils.TimeFmt.timeFmt
 
@@ -15,19 +16,19 @@ object MediaPlayerEvent {
     embeddedMediaPlayer.controls().pause()
 
   def fastForward()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
-    embeddedMediaPlayer.controls().skipTime(3000)
+    embeddedMediaPlayer.controls().skipTime(findMediaPlayerEventSetting("FastForward").get.toInt)
 
   def rewind()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
-    embeddedMediaPlayer.controls().skipTime(-3000)
+    embeddedMediaPlayer.controls().skipTime(findMediaPlayerEventSetting("Rewind").get.toInt)
 
   def skipRate(position: Float)(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
     embeddedMediaPlayer.controls().setPosition(position)
 
   def upVolume()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
-    embeddedMediaPlayer.audio().setVolume(embeddedMediaPlayer.audio().volume() + 5)
+    embeddedMediaPlayer.audio().setVolume(embeddedMediaPlayer.audio().volume() + findMediaPlayerEventSetting("UpVolume").get.toInt)
 
   def downVolume()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
-    embeddedMediaPlayer.audio().setVolume(embeddedMediaPlayer.audio().volume() - 5)
+    embeddedMediaPlayer.audio().setVolume(embeddedMediaPlayer.audio().volume() + findMediaPlayerEventSetting("DownVolume").get.toInt)
 
   def muteVolume()(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
     embeddedMediaPlayer.audio().mute()

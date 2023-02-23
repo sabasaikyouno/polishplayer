@@ -19,7 +19,7 @@ object MediaPlayerEventSettings {
   )
 
   def findMediaPlayerEventSetting(settingName: String) =
-    mediaPlayerEventSettingsList.find(_._1 == settingName)
+    mediaPlayerEventSettingsList.find(_._1 == settingName).map(_._2)
 
   private def getMediaPlayerEventSettings =
     csvReadAll("src\\main\\resources\\mediaPlayerEventSettings.csv")
