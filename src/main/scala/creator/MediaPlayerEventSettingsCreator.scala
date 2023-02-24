@@ -8,13 +8,12 @@ import scalafx.stage.{Modality, Stage}
 import utils.MediaPlayerEventSettings.{mediaPlayerEventSettingNodeToRaw, mediaPlayerEventSettingsList, mediaPlayerEventSettingsWrite}
 
 object MediaPlayerEventSettingsCreator {
-  def createMediaPlayerEventSettingsStage() = {
+  def createMediaPlayerEventSettingsStage =
     new Stage {
       title = "media player event settings"
       initModality(Modality.ApplicationModal)
       scene = new Scene(createMediaPlayerEventSettingsVBox)
     }
-  }
 
   def createMediaPlayerEventSettingsVBox = {
     val mediaPlayerEventSettingsNodeList = mediaPlayerEventSettingsList.map(makeMediaPlayerEventSettingNode)
@@ -33,10 +32,9 @@ object MediaPlayerEventSettingsCreator {
     }
   )
 
-  def saveButton(mediaPlayerEventSettingsNodeList: List[(Text, TextField)]) = {
+  def saveButton(mediaPlayerEventSettingsNodeList: List[(Text, TextField)]) =
     new Button {
       text = "save"
       onMouseClicked = _ => mediaPlayerEventSettingsWrite(mediaPlayerEventSettingsNodeList.map(mediaPlayerEventSettingNodeToRaw))
     }
-  }
 }

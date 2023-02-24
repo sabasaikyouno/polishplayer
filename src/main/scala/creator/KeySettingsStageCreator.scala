@@ -8,13 +8,12 @@ import scalafx.stage.{Modality, Stage}
 import utils.KeySettings.{keySettingNodeToRaw, keySettingsList, keySettingsWrite, removeOrAppendKeyText}
 
 object KeySettingsStageCreator {
-  def createKeySettingsStage() = {
+  def createKeySettingsStage =
     new Stage {
       title = "key settings"
       initModality(Modality.ApplicationModal)
       scene = new Scene(createKeySettingsVBox)
     }
-  }
 
   def createKeySettingsVBox = {
     val keySettingNodeMap = keySettingsList.map(makeKeySettingNode)
@@ -26,8 +25,7 @@ object KeySettingsStageCreator {
   def makeRowHBox(row: (Text, TextField)) =
     new HBox(row._1, row._2)
 
-  def makeKeySettingNode(keySetting: (String, List[String])) =
-    (
+  def makeKeySettingNode(keySetting: (String, List[String])) = (
       new Text(keySetting._1),
       new TextField {
         text = keySetting._2.mkString(" ")
@@ -36,10 +34,9 @@ object KeySettingsStageCreator {
       }
     )
 
-  def saveButton(keySettingsNodeMap: List[(Text, TextField)]) = {
+  def saveButton(keySettingsNodeMap: List[(Text, TextField)]) =
     new Button {
       text = "save"
       onMouseClicked = _ => keySettingsWrite(keySettingsNodeMap.map(keySettingNodeToRaw))
     }
-  }
 }
