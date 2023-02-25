@@ -15,17 +15,17 @@ object KeySettingsStageCreator {
       scene = new Scene(createKeySettingsVBox)
     }
 
-  def createKeySettingsVBox = {
+  private def createKeySettingsVBox = {
     val keySettingNodeMap = keySettingsList.map(makeKeySettingNode)
     val hboxList = keySettingNodeMap.map(makeRowHBox) :+ saveButton(keySettingNodeMap)
 
     new VBox(hboxList: _*)
   }
 
-  def makeRowHBox(row: (Text, TextField)) =
+  private def makeRowHBox(row: (Text, TextField)) =
     new HBox(row._1, row._2)
 
-  def makeKeySettingNode(keySetting: (String, List[String])) = (
+  private def makeKeySettingNode(keySetting: (String, List[String])) = (
       new Text(keySetting._1),
       new TextField {
         text = keySetting._2.mkString(" ")
@@ -34,7 +34,7 @@ object KeySettingsStageCreator {
       }
     )
 
-  def saveButton(keySettingsNodeMap: List[(Text, TextField)]) =
+  private def saveButton(keySettingsNodeMap: List[(Text, TextField)]) =
     new Button {
       text = "save"
       onMouseClicked = _ => keySettingsWrite(keySettingsNodeMap.map(keySettingNodeToRaw))

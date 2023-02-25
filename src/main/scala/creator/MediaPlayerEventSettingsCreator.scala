@@ -15,24 +15,24 @@ object MediaPlayerEventSettingsCreator {
       scene = new Scene(createMediaPlayerEventSettingsVBox)
     }
 
-  def createMediaPlayerEventSettingsVBox = {
+  private def createMediaPlayerEventSettingsVBox = {
     val mediaPlayerEventSettingsNodeList = mediaPlayerEventSettingsList.map(makeMediaPlayerEventSettingNode)
     val hboxList = mediaPlayerEventSettingsNodeList.map(makeRowHBox) :+ saveButton(mediaPlayerEventSettingsNodeList)
 
     new VBox(hboxList: _*)
   }
 
-  def makeRowHBox(row: (Text, TextField)) =
+  private def makeRowHBox(row: (Text, TextField)) =
     new HBox(row._1, row._2)
 
-  def makeMediaPlayerEventSettingNode(mediaPlayerEventSettings: (String, String)) = (
+  private def makeMediaPlayerEventSettingNode(mediaPlayerEventSettings: (String, String)) = (
     new Text(mediaPlayerEventSettings._1),
     new TextField {
       text = mediaPlayerEventSettings._2
     }
   )
 
-  def saveButton(mediaPlayerEventSettingsNodeList: List[(Text, TextField)]) =
+  private def saveButton(mediaPlayerEventSettingsNodeList: List[(Text, TextField)]) =
     new Button {
       text = "save"
       onMouseClicked = _ => mediaPlayerEventSettingsWrite(mediaPlayerEventSettingsNodeList.map(mediaPlayerEventSettingNodeToRaw))
