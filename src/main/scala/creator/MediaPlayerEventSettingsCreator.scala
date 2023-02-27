@@ -1,7 +1,7 @@
 package creator
 
 import scalafx.scene.Scene
-import scalafx.scene.control.{Button, TextField}
+import scalafx.scene.control.{Button, TextField, TextFormatter}
 import scalafx.scene.layout.{HBox, VBox}
 import scalafx.scene.text.Text
 import scalafx.stage.{Modality, Stage}
@@ -29,6 +29,7 @@ object MediaPlayerEventSettingsCreator {
     new Text(mediaPlayerEventSettings._1),
     new TextField {
       text = mediaPlayerEventSettings._2
+      textFormatter = numberTextFormatter
     }
   )
 
@@ -37,4 +38,16 @@ object MediaPlayerEventSettingsCreator {
       text = "save"
       onMouseClicked = _ => mediaPlayerEventSettingsWrite(mediaPlayerEventSettingsNodeList.map(mediaPlayerEventSettingNodeToRaw))
     }
+
+  private def numberTextFormatter = {
+    new TextFormatter[String]((change: TextFormatter.Change) => {
+      change.text = {
+        if (change.controlNewText.matches("-?\\d+"))
+          change.text
+        else
+          ""
+      }
+      change
+    })
+  }
 }
