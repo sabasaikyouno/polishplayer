@@ -1,5 +1,6 @@
 package creator
 
+import creator.MediaInfoCreator.createMediaInfoStage
 import creator.SettingsCreator.createSettingsStage
 import event.MediaPlayerEvent.{paused, timeChanged, volumeChanged}
 import scalafx.Includes._
@@ -57,7 +58,8 @@ object ToolBarCreator {
         pauseButton,
         createForWordButton(),
         createFullScreenButton(),
-        createSettingsButton()
+        createSettingsButton(),
+        createMediaInfoButton
       )
     }
 
@@ -106,6 +108,13 @@ object ToolBarCreator {
     createButtonHasEvent(settingsButton) { _ =>
       settingsStage.show()
     }
+
+  private def createMediaInfoButton(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) = {
+    val mediaInfoStage = createMediaInfoStage(embeddedMediaPlayer)
+    createButtonHasEvent(mediaInfoButton) { _ =>
+      mediaInfoStage.show()
+    }
+  }
 
   private def createTimeSlider(timeThumbnail: ImageView, timeThumbnailEmbedded: EmbeddedMediaPlayer)(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) =
     new Slider {
