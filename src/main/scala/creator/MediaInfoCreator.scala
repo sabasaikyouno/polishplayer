@@ -1,7 +1,7 @@
 package creator
 
 import scalafx.scene.Scene
-import scalafx.scene.layout.VBox
+import scalafx.scene.layout.{HBox, VBox}
 import scalafx.scene.text.Text
 import scalafx.stage.Stage
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
@@ -18,6 +18,12 @@ object MediaInfoCreator {
 
   private def createMediaInfoVBox(embeddedMediaPlayer: EmbeddedMediaPlayer) =
     new VBox(
-      new Text(Try(embeddedMediaPlayer.media().info().mrl()).getOrElse(""))
+      createHBox("mrl ", Try(embeddedMediaPlayer.media().info().mrl()).getOrElse(""))
+    )
+
+  private def createHBox(text: String, text2: String) =
+    new HBox(
+      new Text(text),
+      new Text(text2)
     )
 }
