@@ -18,14 +18,13 @@ object SettingsCreator {
 
   private def createSettingsVBox =
     new VBox(
-      createSettingButton("keySettings", createKeySettingsStage),
-      createSettingButton("mediaPlayerEventSettings", createMediaPlayerEventSettingsStage)
+      createStageButton("keySettings", createKeySettingsStage),
+      createStageButton("mediaPlayerEventSettings", createMediaPlayerEventSettingsStage)
     )
 
-  private def createSettingButton(buttonText: String, stage: Stage) =
+  private def createStageButton(buttonText: String, stage: Stage) =
     new Button {
       text = buttonText
       onMouseClicked = _ => stage.show()
     }
-
 }

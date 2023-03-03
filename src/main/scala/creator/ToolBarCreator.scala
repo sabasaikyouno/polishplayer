@@ -1,6 +1,6 @@
 package creator
 
-import creator.MediaInfoCreator.createMediaInfoStage
+import creator.MenuCreator.createMenuStage
 import creator.SettingsCreator.createSettingsStage
 import event.MediaPlayerEvent.{paused, timeChanged, volumeChanged}
 import scalafx.Includes._
@@ -110,9 +110,9 @@ object ToolBarCreator {
     }
 
   private def createMediaInfoButton(implicit embeddedMediaPlayer: EmbeddedMediaPlayer) = {
-    val mediaInfoStage = createMediaInfoStage(embeddedMediaPlayer)
-    createButtonHasEvent(mediaInfoButton) { _ =>
-      mediaInfoStage.show()
+    val menuStage = createMenuStage(embeddedMediaPlayer)
+    createButtonHasEvent(menuButton) { _ =>
+      menuStage.show()
     }
   }
 
