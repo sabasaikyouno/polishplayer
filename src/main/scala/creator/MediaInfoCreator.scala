@@ -5,6 +5,7 @@ import scalafx.scene.layout.{HBox, VBox}
 import scalafx.scene.text.Text
 import scalafx.stage.Stage
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer
+import utils.TimeFmt.timeFmt
 
 import scala.util.Try
 
@@ -18,7 +19,8 @@ object MediaInfoCreator {
 
   private def createMediaInfoVBox(embeddedMediaPlayer: EmbeddedMediaPlayer) =
     new VBox(
-      createHBox("mrl ", Try(embeddedMediaPlayer.media().info().mrl()).getOrElse(""))
+      createHBox("mrl ", Try(embeddedMediaPlayer.media().info().mrl()).getOrElse("")),
+      createHBox("time", Try(timeFmt(embeddedMediaPlayer.media().info().duration())).getOrElse(""))
     )
 
   private def createHBox(text: String, text2: String) =
