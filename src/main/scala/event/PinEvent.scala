@@ -1,0 +1,5 @@
+package event
+
+object PinEvent {
+
+}
