@@ -33,6 +33,7 @@ object KeyMouseEvent {
         case ("MuteVolume", _) => muteVolume()
         case ("FullScreen", _) => fullScreen()
         case (_, digit) if digit.isDigitKey => skipRate(digit.getName.toFloat / 10)
+        case ("Pin", _) => println("pin")
         case _ => ()
       }
 
